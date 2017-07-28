@@ -17,13 +17,6 @@ class FirstViewController: UIViewController {
         canvas.reset()
     }
 
-    @IBAction func showPressed(_ sender: Any) {
-        
-        canvas.getIntensities(dimension: 28)
-        
-    }
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

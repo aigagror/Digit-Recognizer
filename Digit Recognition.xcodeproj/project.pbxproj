@@ -15,8 +15,19 @@
 		2C2EE6241F292E94004E9C94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2EE6221F292E94004E9C94 /* LaunchScreen.storyboard */; };
 		2C2EE62C1F293426004E9C94 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE62B1F293426004E9C94 /* CanvasView.swift */; };
 		2C2EE62E1F295C40004E9C94 /* Coor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE62D1F295C40004E9C94 /* Coor.swift */; };
-		2C2EE6321F2AA294004E9C94 /* Pixels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE6311F2AA294004E9C94 /* Pixels.swift */; };
+		2C2EE6381F2AC936004E9C94 /* FCNeuralNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE6371F2AC936004E9C94 /* FCNeuralNetwork.swift */; };
+		2C2EE6441F2ADE61004E9C94 /* Digit_RecognitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE6431F2ADE61004E9C94 /* Digit_RecognitionTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2C2EE6461F2ADE61004E9C94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C2EE60C1F292E94004E9C94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C2EE6131F292E94004E9C94;
+			remoteInfo = "Digit Recognition";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2C2EE6141F292E94004E9C94 /* Digit Recognition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Digit Recognition.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,11 +40,21 @@
 		2C2EE6251F292E94004E9C94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C2EE62B1F293426004E9C94 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		2C2EE62D1F295C40004E9C94 /* Coor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coor.swift; sourceTree = "<group>"; };
-		2C2EE6311F2AA294004E9C94 /* Pixels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixels.swift; sourceTree = "<group>"; };
+		2C2EE6371F2AC936004E9C94 /* FCNeuralNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCNeuralNetwork.swift; sourceTree = "<group>"; };
+		2C2EE6411F2ADE61004E9C94 /* Digit RecognitionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Digit RecognitionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C2EE6431F2ADE61004E9C94 /* Digit_RecognitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digit_RecognitionTests.swift; sourceTree = "<group>"; };
+		2C2EE6451F2ADE61004E9C94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2C2EE6111F292E94004E9C94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C2EE63E1F2ADE61004E9C94 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -47,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				2C2EE6161F292E94004E9C94 /* Digit Recognition */,
+				2C2EE6421F2ADE61004E9C94 /* Digit RecognitionTests */,
 				2C2EE6151F292E94004E9C94 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				2C2EE6141F292E94004E9C94 /* Digit Recognition.app */,
+				2C2EE6411F2ADE61004E9C94 /* Digit RecognitionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -62,6 +85,7 @@
 		2C2EE6161F292E94004E9C94 /* Digit Recognition */ = {
 			isa = PBXGroup;
 			children = (
+				2C2EE6371F2AC936004E9C94 /* FCNeuralNetwork.swift */,
 				2C2EE6171F292E94004E9C94 /* AppDelegate.swift */,
 				2C2EE62D1F295C40004E9C94 /* Coor.swift */,
 				2C2EE6191F292E94004E9C94 /* FirstViewController.swift */,
@@ -71,9 +95,17 @@
 				2C2EE6201F292E94004E9C94 /* Assets.xcassets */,
 				2C2EE6221F292E94004E9C94 /* LaunchScreen.storyboard */,
 				2C2EE6251F292E94004E9C94 /* Info.plist */,
-				2C2EE6311F2AA294004E9C94 /* Pixels.swift */,
 			);
 			path = "Digit Recognition";
+			sourceTree = "<group>";
+		};
+		2C2EE6421F2ADE61004E9C94 /* Digit RecognitionTests */ = {
+			isa = PBXGroup;
+			children = (
+				2C2EE6431F2ADE61004E9C94 /* Digit_RecognitionTests.swift */,
+				2C2EE6451F2ADE61004E9C94 /* Info.plist */,
+			);
+			path = "Digit RecognitionTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +128,24 @@
 			productReference = 2C2EE6141F292E94004E9C94 /* Digit Recognition.app */;
 			productType = "com.apple.product-type.application";
 		};
+		2C2EE6401F2ADE61004E9C94 /* Digit RecognitionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C2EE6481F2ADE61004E9C94 /* Build configuration list for PBXNativeTarget "Digit RecognitionTests" */;
+			buildPhases = (
+				2C2EE63D1F2ADE61004E9C94 /* Sources */,
+				2C2EE63E1F2ADE61004E9C94 /* Frameworks */,
+				2C2EE63F1F2ADE61004E9C94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C2EE6471F2ADE61004E9C94 /* PBXTargetDependency */,
+			);
+			name = "Digit RecognitionTests";
+			productName = "Digit RecognitionTests";
+			productReference = 2C2EE6411F2ADE61004E9C94 /* Digit RecognitionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -110,6 +160,12 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = CNVS5VG567;
 						ProvisioningStyle = Automatic;
+					};
+					2C2EE6401F2ADE61004E9C94 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = CNVS5VG567;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2C2EE6131F292E94004E9C94;
 					};
 				};
 			};
@@ -127,6 +183,7 @@
 			projectRoot = "";
 			targets = (
 				2C2EE6131F292E94004E9C94 /* Digit Recognition */,
+				2C2EE6401F2ADE61004E9C94 /* Digit RecognitionTests */,
 			);
 		};
 /* End PBXProject section */
@@ -142,6 +199,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2C2EE63F1F2ADE61004E9C94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -149,16 +213,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C2EE6321F2AA294004E9C94 /* Pixels.swift in Sources */,
 				2C2EE61C1F292E94004E9C94 /* SecondViewController.swift in Sources */,
 				2C2EE6181F292E94004E9C94 /* AppDelegate.swift in Sources */,
 				2C2EE62C1F293426004E9C94 /* CanvasView.swift in Sources */,
 				2C2EE62E1F295C40004E9C94 /* Coor.swift in Sources */,
 				2C2EE61A1F292E94004E9C94 /* FirstViewController.swift in Sources */,
+				2C2EE6381F2AC936004E9C94 /* FCNeuralNetwork.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C2EE63D1F2ADE61004E9C94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C2EE6441F2ADE61004E9C94 /* Digit_RecognitionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2C2EE6471F2ADE61004E9C94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2C2EE6131F292E94004E9C94 /* Digit Recognition */;
+			targetProxy = 2C2EE6461F2ADE61004E9C94 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2C2EE61D1F292E94004E9C94 /* Main.storyboard */ = {
@@ -301,6 +381,34 @@
 			};
 			name = Release;
 		};
+		2C2EE6491F2ADE61004E9C94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = CNVS5VG567;
+				INFOPLIST_FILE = "Digit RecognitionTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aigagror.Digit-RecognitionTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Digit Recognition.app/Digit Recognition";
+			};
+			name = Debug;
+		};
+		2C2EE64A1F2ADE61004E9C94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = CNVS5VG567;
+				INFOPLIST_FILE = "Digit RecognitionTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.aigagror.Digit-RecognitionTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Digit Recognition.app/Digit Recognition";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -318,6 +426,14 @@
 			buildConfigurations = (
 				2C2EE6291F292E94004E9C94 /* Debug */,
 				2C2EE62A1F292E94004E9C94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2C2EE6481F2ADE61004E9C94 /* Build configuration list for PBXNativeTarget "Digit RecognitionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C2EE6491F2ADE61004E9C94 /* Debug */,
+				2C2EE64A1F2ADE61004E9C94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

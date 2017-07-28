@@ -11,10 +11,19 @@ import UIKit
 class SecondViewController: UIViewController {
 
     @IBOutlet weak var canvas: CanvasView!
+    @IBOutlet weak var segmentController: UISegmentedControl!
     
     @IBAction func resetPressed(_ sender: UIButton) {
         
         canvas.reset()
+    }
+    @IBAction func submitPressed(_ sender: UIButton) {
+        
+        canvas.reset()
+        
+        let bitMap = canvas.getIntensities(dimension: 28)
+        
+        neuralNetwork.train(input: bitMap, output: segmentController.selectedSegmentIndex)
     }
 
     override func viewDidLoad() {

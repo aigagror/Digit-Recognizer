@@ -78,7 +78,7 @@ class CanvasView: UIView {
         }
     }
   
-    func getIntensities(dimension: Int) -> Void {
+    func getIntensities(dimension: Int) -> [[UInt8]] {
         
         UIGraphicsBeginImageContext(self.frame.size)
         
@@ -131,25 +131,11 @@ class CanvasView: UIView {
                     newPixels[i][j] = UInt8(Double(sum) / numberOfMappedPixels)
                 }
             }
-            
-            
-            
-            
         } else {
             fatalError()
         }
         
-        
-        // print the pixels
-        for i in 0..<dimension {
-            for j in 0..<dimension {
-                
-                print(newPixels[i][j], separator: "", terminator: "\t")
-                
-            }
-            print("")
-        }
-        
+        return newPixels
     }
     
     func reset() -> Void {

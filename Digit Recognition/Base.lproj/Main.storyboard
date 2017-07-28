@@ -45,14 +45,6 @@
                                     <action selector="resetPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="buQ-Xc-U5g"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvK-b7-jhP">
-                                <rect key="frame" x="241" y="530" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Show"/>
-                                <connections>
-                                    <action selector="showPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="jNn-er-0QW"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                         <gestureRecognizers/>
@@ -98,6 +90,9 @@
                                 <rect key="frame" x="308" y="530" width="51" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="iZc-kR-0sk"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAs-fX-tND">
                                 <rect key="frame" x="16" y="530" width="39" height="30"/>
@@ -140,6 +135,7 @@
                     <tabBarItem key="tabBarItem" title="Train" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="canvas" destination="xv3-WA-rUI" id="nf3-eS-zSB"/>
+                        <outlet property="segmentController" destination="3WI-Cf-94G" id="0W6-Qc-hfs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
