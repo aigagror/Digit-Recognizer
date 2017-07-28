@@ -13,12 +13,26 @@ let neuralNetwork = FCNeuralNetwork(input: 784, output: 10, hiddenLayers: 300, 1
 /// A fully connected neural network
 class FCNeuralNetwork {
     
+    // MARK: Properties
     
+    // the number of nodes for each layer
+    let inputSize: Int
+    let outputSize: Int
+    let hiddenLayerSizes: [Int]
+    
+    var weights: [[[Double]]]
+    var biases: [Double]
+    
+    /// Node values for all layers, including input and output
+    var nodes: [[Double]]
+    
+    
+    // MARK: Initialization
     init(input: Int, output: Int, hiddenLayers: Int...) {
         
-        self.input = input
-        self.output = output
-        self.hiddenLayers = hiddenLayers
+        self.inputSize = input
+        self.outputSize = output
+        self.hiddenLayerSizes = hiddenLayers
         
         let numberOfLayers = 2 + hiddenLayers.count
         
@@ -26,7 +40,7 @@ class FCNeuralNetwork {
     
         self.weights = [[[Double]]]()
         
-        self.currentHiddenLayerNodeValues = [[Double]]()
+        self.nodes = [[Double]]()
 
         
         for i in 0..<biases.count {
@@ -75,26 +89,9 @@ class FCNeuralNetwork {
         print("")
         print(biases.count)
         
-        
-        // setup currentHiddenLayerNodeValues
-        for numNodesInThisLayer in hiddenLayers {
-            let layer = [Double](repeatElement(0.0, count: numNodesInThisLayer))
-            currentHiddenLayerNodeValues.append(layer)
-        }
-        
     }
     
-    // MARK: Properties
-    
-    // the number of nodes for each layer
-    let input: Int
-    let output: Int
-    let hiddenLayers: [Int]
-    
-    var weights: [[[Double]]]
-    var biases: [Double]
-    
-    var currentHiddenLayerNodeValues: [[Double]]
+   
     
     
     // MARK: Functions
@@ -110,36 +107,39 @@ class FCNeuralNetwork {
             input2[i] = Double(input[i])
         }
         
-        let numHiddenLayers = hiddenLayers.count
+        // forward pass
+        forwardPass(input: input2)
+        
+        // backpropogate
+        backpropogate(correctOutput: output)
+        
+    }
+    
+    func forwardPass(input: [Double]) -> Void {
+        // TODO: Implement
+        
+        let numHiddenLayers = hiddenLayerSizes.count
         
         // do the first hidden layer
         if numHiddenLayers > 0 {
-            <#code#>
+            
         }
         
         // do the rest of the middle
         if numHiddenLayers > 2 {
-            <#code#>
+            
         }
         
         // do the output layer
         if numHiddenLayers > 0 {
-            <#code#>
+            
         } else {
             
         }
-        
-        
-        // backpropogate
-        
-        
     }
     
-    func forward(input: [Double], output: Int) -> Void {
-        <#function body#>
-    }
     func backpropogate(correctOutput: Int) -> Void {
-        <#function body#>
+        // TODO: Implement
     }
     
     
@@ -181,15 +181,8 @@ class FCNeuralNetwork {
     }
     
     private func forwardStep(weightMatrix: [[Double]], nodes: [Double]) -> [Double] {
-        
-        
-        
-        
-        
+        // TODO: Implement
+        return [Double]()
     }
-    
-    
-    
-    
 }
 

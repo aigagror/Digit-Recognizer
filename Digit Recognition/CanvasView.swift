@@ -77,8 +77,9 @@ class CanvasView: UIView {
             makeBezierPath(bezierPathCoors: bezierPathCoors)
         }
     }
+
   
-    func getIntensities(dimension: Int) -> [[UInt8]] {
+    func getCroppedBitMap(dimension: Int) -> [[UInt8]]? {
         
         UIGraphicsBeginImageContext(self.frame.size)
         
@@ -92,19 +93,141 @@ class CanvasView: UIView {
         
         let cgImage = image.cgImage!
         
-        let oldPixels = pixelValues(fromCGImage: cgImage).pixelValues!
+        var oldPixels = pixelValues(fromCGImage: cgImage).pixelValues!
+        
+        // invert the values
+        for i in 0..<oldPixels.count {
+            oldPixels[i] = 255 - oldPixels[i]
+        }
+        
+        // make sure there is at least a mark
+        
+        var emptyCanvas = true
+        for pixel in oldPixels {
+            if pixel > 0 {
+                emptyCanvas = false
+                break
+            }
+        }
+        if emptyCanvas {
+            return nil
+        }
         
         let width = cgImage.width
         let height = cgImage.height
+        
+        // crop the pixels so that the marks fill the entire square
+        
+        // get rowIndex of beginning and end of marks
+        var startRowMarkIndex = -1
+        var endRowMarkIndex = -1
+        
+        for j in 0..<width {
+            var hitMarkFromLeft = false
+            for i in 0..<height {
+                let pixel = oldPixels[i*width + j]
+                
+                if pixel > 0 {
+                    hitMarkFromLeft = true
+                    break
+                }
+            }
+            
+            if hitMarkFromLeft {
+                startRowMarkIndex = j
+                break
+            }
+        }
+        
+        for j in (0..<width).reversed() {
+            var hitMarkFromRight = false
+            for i in 0..<height {
+                let pixel = oldPixels[i*width + j]
+                
+                if pixel > 0 {
+                    hitMarkFromRight = true
+                    break
+                }
+            }
+            
+            if hitMarkFromRight {
+                endRowMarkIndex = j
+                break
+            }
+        }
+        
+        // get columnIndex of beginning and end of marks
+        var startColumnMarkIndex = -1
+        var endColumnMarkIndex = -1
+        
+        for i in 0..<height {
+            var hitMarkFromTop = false
+            for j in 0..<width {
+                let pixel = oldPixels[i*width + j]
+                
+                if pixel > 0 {
+                    hitMarkFromTop = true
+                    break
+                }
+            }
+            
+            if hitMarkFromTop {
+                startColumnMarkIndex = i
+                break
+            }
+        }
+        
+        for i in (0..<height).reversed() {
+            var hitMarkFromBottom = false
+            for j in 0..<width {
+                let pixel = oldPixels[i*width + j]
+                
+                if pixel > 0 {
+                    hitMarkFromBottom = true
+                    break
+                }
+            }
+            
+            if hitMarkFromBottom {
+                endColumnMarkIndex = i
+                break
+            }
+        }
+        
+        guard startRowMarkIndex >= 0 && startColumnMarkIndex >= 0 && endRowMarkIndex >= 0 && endColumnMarkIndex >= 0 else {
+            fatalError("Failed to crop")
+        }
+        guard endRowMarkIndex > startRowMarkIndex && endColumnMarkIndex > startColumnMarkIndex else {
+            fatalError("Failed to crop")
+        }
+        
+        let croppedDimension = max((endColumnMarkIndex - startColumnMarkIndex + 1), (endRowMarkIndex - startRowMarkIndex + 1))
+        
+        // too small
+        if croppedDimension < dimension {
+            return nil
+        }
+        
+        var croppedPixels = [UInt8](repeatElement(0, count: croppedDimension*croppedDimension))
+        for x in startRowMarkIndex...endRowMarkIndex {
+            for y in startColumnMarkIndex...endColumnMarkIndex {
+                
+                let i = x - startRowMarkIndex
+                let j = y - startColumnMarkIndex
+                
+                croppedPixels[j * croppedDimension + i] = oldPixels[y * width + x]
+            }
+        }
+        
         
         
         // scale it down to a dimension x dimension matrix
         var newPixels = [[UInt8]](repeating: [UInt8](repeating: 0, count: dimension), count: dimension)
         
-        if dimension <= width && dimension <= height {
+        if dimension <= croppedDimension && dimension <= croppedDimension {
             
-            let widthScaleFactor = Double(width) / Double(dimension)
-            let heightScaleFactor = Double(height) / Double(dimension)
+            let widthScaleFactor = Double(croppedDimension) / Double(dimension)
+            let heightScaleFactor = Double(croppedDimension) / Double(dimension)
             
             for i in 0..<dimension {
                 for j in 0..<dimension {
@@ -121,7 +244,7 @@ class CanvasView: UIView {
                     for x in startX..<endX {
                         for y in startY..<endY {
                             
-                            sum += Int(oldPixels[y*width + x])
+                            sum += Int(croppedPixels[y*croppedDimension + x])
                             
                         }
                     }
@@ -133,6 +256,14 @@ class CanvasView: UIView {
             }
         } else {
             fatalError()
+        }
+        
+        // print bitmap
+        for row in newPixels {
+            for index in row {
+                print(index, separator: "", terminator: "\t")
+            }
+            print("\n")
         }
         
         return newPixels

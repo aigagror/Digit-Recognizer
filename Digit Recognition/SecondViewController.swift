@@ -19,11 +19,12 @@ class SecondViewController: UIViewController {
     }
     @IBAction func submitPressed(_ sender: UIButton) {
         
+        if let bitMap = canvas.getCroppedBitMap(dimension: 28) {
+            neuralNetwork.train(input: bitMap, output: segmentController.selectedSegmentIndex)
+
+        }
+
         canvas.reset()
-        
-        let bitMap = canvas.getIntensities(dimension: 28)
-        
-        neuralNetwork.train(input: bitMap, output: segmentController.selectedSegmentIndex)
     }
 
     override func viewDidLoad() {
