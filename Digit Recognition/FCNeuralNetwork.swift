@@ -26,6 +26,9 @@ class FCNeuralNetwork {
     
         self.weights = [[[Double]]]()
         
+        self.currentHiddenLayerNodeValues = [[Double]]()
+
+        
         for i in 0..<biases.count {
             self.biases[i] = random()
         }
@@ -72,7 +75,16 @@ class FCNeuralNetwork {
         print("")
         print(biases.count)
         
+        
+        // setup currentHiddenLayerNodeValues
+        for numNodesInThisLayer in hiddenLayers {
+            let layer = [Double](repeatElement(0.0, count: numNodesInThisLayer))
+            currentHiddenLayerNodeValues.append(layer)
+        }
+        
     }
+    
+    // MARK: Properties
     
     // the number of nodes for each layer
     let input: Int
@@ -82,15 +94,54 @@ class FCNeuralNetwork {
     var weights: [[[Double]]]
     var biases: [Double]
     
+    var currentHiddenLayerNodeValues: [[Double]]
     
     
+    // MARK: Functions
     func train(input: [[UInt8]], output: Int) -> Void {
         // TODO: convert input into 1-d Int array and call the other train function
     }
     
     func train(input: [Int], output: Int) -> Void {
         
+        var input2 = [Double].init(repeating: 0, count: input.count)
+        
+        for i in 0..<input.count {
+            input2[i] = Double(input[i])
+        }
+        
+        let numHiddenLayers = hiddenLayers.count
+        
+        // do the first hidden layer
+        if numHiddenLayers > 0 {
+            <#code#>
+        }
+        
+        // do the rest of the middle
+        if numHiddenLayers > 2 {
+            <#code#>
+        }
+        
+        // do the output layer
+        if numHiddenLayers > 0 {
+            <#code#>
+        } else {
+            
+        }
+        
+        
+        // backpropogate
+        
+        
     }
+    
+    func forward(input: [Double], output: Int) -> Void {
+        <#function body#>
+    }
+    func backpropogate(correctOutput: Int) -> Void {
+        <#function body#>
+    }
+    
     
     func sigmoid(weights: [Double], input: [Double]) -> Double {
         
@@ -127,6 +178,14 @@ class FCNeuralNetwork {
     
     private func random() -> Double {
         return Double(arc4random()) / Double(UINT32_MAX)
+    }
+    
+    private func forwardStep(weightMatrix: [[Double]], nodes: [Double]) -> [Double] {
+        
+        
+        
+        
+        
     }
     
     

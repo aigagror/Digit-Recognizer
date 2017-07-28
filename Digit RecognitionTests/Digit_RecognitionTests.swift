@@ -27,8 +27,12 @@ class Digit_RecognitionTests: XCTestCase {
         let nn = FCNeuralNetwork(input: 1, output: 1, hiddenLayers: 1)
         
         let s1 = nn.sigmoid(weights: [1], input: [0])
+        let s2 = nn.sigmoid(weights: [1], input: [1])
+        let s3 = nn.sigmoid(weights: [1], input: [-1])
         
-        XCTAssert(s1 == 1)
+        XCTAssert(s1 == 0.5, "s1: \(s1)")
+        XCTAssert(s2 > 0.5, "s2: \(s2)")
+        XCTAssert(s3 < 0.5, "s2: \(s3)")
         
     }
 //    
