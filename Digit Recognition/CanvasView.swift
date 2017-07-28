@@ -11,6 +11,8 @@ import UIKit
 class CanvasView: UIView {
     
     
+    // MARK: Touch Events
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let pos = touch.location(in: self)
@@ -38,25 +40,50 @@ class CanvasView: UIView {
     }
 
     
-    
+    // MARK: Properties
     var currBezierPathCoors = [CGPoint]()
     
     var previousBeziers = [[CGPoint]]()
     
 
-    
-    // stroke thickness
     let strokeThickness: CGFloat = 10
     
     var needsReset: Bool = false
     
     
+    // MARK: Drawing
+
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        
+        if needsReset {
+            
+            previousBeziers.removeAll()
+            currBezierPathCoors.removeAll()
+            
+            UIColor.clear.setFill()
+            
+            UIBezierPath(rect: rect).fill()
+            
+            needsReset = false
+            
+            return
+        }
+        
+        makeBezierPath(bezierPathCoors: currBezierPathCoors)
+        
+        for bezierPathCoors in previousBeziers {
+            makeBezierPath(bezierPathCoors: bezierPathCoors)
+        }
+    }
+  
     func getIntensities() -> Void {
         
         UIGraphicsBeginImageContext(self.frame.size)
         
         let context = UIGraphicsGetCurrentContext()!
-
+        
         
         self.layer.render(in: context)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
@@ -85,32 +112,14 @@ class CanvasView: UIView {
         
     }
     
-    
-
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
+    func reset() -> Void {
         
-        if needsReset {
-            
-            previousBeziers.removeAll()
-            currBezierPathCoors.removeAll()
-            
-            UIColor.clear.setFill()
-            
-            UIBezierPath(rect: rect).fill()
-            
-            needsReset = false
-            
-            return
-        }
+        needsReset = true
         
-        makeBezierPath(bezierPathCoors: currBezierPathCoors)
-        
-        for bezierPathCoors in previousBeziers {
-            makeBezierPath(bezierPathCoors: bezierPathCoors)
-        }
+        setNeedsDisplay()
     }
+    
+    // MARK: Private functions
     
     private func makeBezierPath(bezierPathCoors: [CGPoint]) {
         let marker = UIBezierPath()
@@ -135,7 +144,7 @@ class CanvasView: UIView {
             for i in 0 ..< (numPoints - 1) {
                 let currPoint = bezierPathCoors[i]
                 let target = bezierPathCoors[i+1]
-
+                
                 marker.move(to: currPoint)
                 
                 marker.addLine(to: target)
@@ -147,9 +156,6 @@ class CanvasView: UIView {
         }
     }
     
-    private func distance(start: CGPoint, end: CGPoint) -> CGFloat {
-        return sqrt( pow(end.x - start.x, 2.0) + pow(end.y - start.y, 2.0) )
-    }
     
     private func pixelValues(fromCGImage imageRef: CGImage?) -> (pixelValues: [UInt8]?, width: Int, height: Int) {
         var width = 0
@@ -172,13 +178,5 @@ class CanvasView: UIView {
         }
         
         return (pixelValues, width, height)
-    }
-    
-    
-    func reset() -> Void {
-
-        needsReset = true
-        
-        setNeedsDisplay()
     }
 }
