@@ -116,6 +116,14 @@
                                     <segment title="9"/>
                                 </segments>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z8H-D9-DhK">
+                                <rect key="frame" x="165" y="38" width="44" height="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Train"/>
+                                <connections>
+                                    <action selector="trainPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="5bV-lz-6dr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
@@ -123,8 +131,10 @@
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="4Of-iD-2n6"/>
                             <constraint firstItem="3WI-Cf-94G" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="6J9-oT-i27"/>
                             <constraint firstItem="3WI-Cf-94G" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="8Iu-11-BxY"/>
+                            <constraint firstItem="3WI-Cf-94G" firstAttribute="top" secondItem="Z8H-D9-DhK" secondAttribute="bottom" constant="35" id="A9d-AP-PW7"/>
                             <constraint firstItem="bAZ-pl-dBp" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="EPV-vt-vBQ"/>
                             <constraint firstItem="MAs-fX-tND" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Vac-LS-Akt"/>
+                            <constraint firstItem="Z8H-D9-DhK" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="VqO-12-zP0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3WI-Cf-94G" secondAttribute="trailing" id="afo-XP-F6R"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="top" secondItem="3WI-Cf-94G" secondAttribute="bottom" constant="20.5" id="vom-Fh-6aY"/>
                             <constraint firstItem="MAs-fX-tND" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="18.5" id="wcH-H8-WaB"/>

@@ -15,13 +15,13 @@ class FCNeuralNetwork {
     
     // MARK: Properties
     
-    // the number of nodes for each layer
     let inputSize: Int
     let outputSize: Int
     let hiddenLayerSizes: [Int]
     
     var weights: [[[Double]]]
-    var biases: [Double]
+    
+    var trainingSet = [(input: [UInt8], correctOutput: Int)]()
     
     /// Node values for all layers, including input and output
     var nodes: [[Double]]
@@ -36,20 +36,15 @@ class FCNeuralNetwork {
         
         let numberOfLayers = 2 + hiddenLayers.count
         
-        self.biases = [Double].init(repeating: 0, count: numberOfLayers - 1)
     
         self.weights = [[[Double]]]()
         
         self.nodes = [[Double]]()
 
         
-        for i in 0..<biases.count {
-            self.biases[i] = random()
-        }
-        
         // weight matrix for input
         var dimensions = (0,0)
-        dimensions.1 = input
+        dimensions.1 = input + 1
         dimensions.0 = hiddenLayers.isEmpty ? output : hiddenLayers[0]
         
         let inputWeightMatrix = createMatrix(dimensions: dimensions)
@@ -63,7 +58,7 @@ class FCNeuralNetwork {
         if numHiddenLayers > 0 {
             
             for i in 0..<numHiddenLayers - 1 {
-                dimensions.1 = hiddenLayers[i]
+                dimensions.1 = hiddenLayers[i] + 1
                 dimensions.0 = hiddenLayers[i+1]
                 
                 let hiddenWeightMatrix = createMatrix(dimensions: dimensions)
@@ -72,7 +67,7 @@ class FCNeuralNetwork {
             }
             
             // last weight matrix
-            dimensions.1 = hiddenLayers[numHiddenLayers-1]
+            dimensions.1 = hiddenLayers[numHiddenLayers-1] + 1
             dimensions.0 = output
             
             let lastWeightMatrix = createMatrix(dimensions: dimensions)
@@ -86,62 +81,116 @@ class FCNeuralNetwork {
             
             print("(\(height) x \(width))", separator: "", terminator: "\t")
         }
-        print("")
-        print(biases.count)
-        
     }
     
    
     
     
     // MARK: Functions
-    func train(input: [[UInt8]], output: Int) -> Void {
-        // TODO: convert input into 1-d Int array and call the other train function
+    
+    func addToTrainingSet(trainingData: (input: [UInt8], correctOutput: Int)) -> Void {
+        self.trainingSet.append(trainingData)
     }
     
-    func train(input: [Int], output: Int) -> Void {
+    func addToTrainingSet(image: [[UInt8]], correctOutput: Int) -> Void {
         
-        var input2 = [Double].init(repeating: 0, count: input.count)
+        var newInput = [UInt8]()
         
-        for i in 0..<input.count {
+        for row in image {
+            for value in row {
+                newInput.append(value)
+            }
+        }
+        
+        addToTrainingSet(trainingData: (newInput, correctOutput: correctOutput))
+    }
+    
+    
+    
+    /// This function optimizes the weights
+    func train() -> Void {
+        
+        // TODO: Implement
+        let cost = costFunction()
+        print(cost)
+        
+        // forward pass
+
+        
+        // backpropogate
+        
+    }
+    
+    func forwardPass(input: [UInt8]) -> [Double] {
+        
+        var input2 = [Double].init(repeating: 0.0, count: inputSize)
+        
+        for i in 0..<inputSize {
             input2[i] = Double(input[i])
         }
         
-        // forward pass
-        forwardPass(input: input2)
-        
-        // backpropogate
-        backpropogate(correctOutput: output)
-        
+        return forwardPass(input: input2)
     }
     
-    func forwardPass(input: [Double]) -> Void {
-        // TODO: Implement
+    /// AKA the predict function
+    ///
+    /// - Parameter input:
+    /// - Returns: predicted output
+    func forwardPass(input: [Double]) -> [Double] {
+        nodes.removeAll()
+        nodes.append(input)
         
         let numHiddenLayers = hiddenLayerSizes.count
         
-        // do the first hidden layer
-        if numHiddenLayers > 0 {
+        let numberOfIterations = numHiddenLayers + 1
+        
+        for i in 0..<numberOfIterations {
+            let weightMatrix = weights[i]
+            let inputNodes = nodes.last!
             
+            let newLayer = forwardStep(weightMatrix: weightMatrix, nodes: inputNodes)
+            
+            nodes.append(newLayer)
         }
         
-        // do the rest of the middle
-        if numHiddenLayers > 2 {
-            
-        }
-        
-        // do the output layer
-        if numHiddenLayers > 0 {
-            
-        } else {
-            
-        }
+        return nodes.last!
     }
     
-    func backpropogate(correctOutput: Int) -> Void {
+    private func backpropogate() -> Void {
         // TODO: Implement
     }
     
+    
+    /// Tells us how well our neural network performs on the training set
+    ///
+    /// - Returns: cost function value
+    func costFunction() -> Double {
+        
+        let lambda = 1.0
+        
+        // TODO: Implement
+        
+        var results = [(predicted: [Double], actual: [Double])]()
+        
+        for trainData in trainingSet {
+            let predicted = forwardPass(input: trainData.input)
+            let correctOutput = trainData.correctOutput
+            
+            var correctOutputVector = [Double].init(repeating: 0.0, count: outputSize)
+            correctOutputVector[correctOutput] = 1.0
+            
+            let resultData = (predicted: predicted, actual: correctOutputVector)
+            
+            results.append(resultData)
+        }
+        
+        
+        
+        
+        
+        
+        return 0.0
+    }
     
     func sigmoid(weights: [Double], input: [Double]) -> Double {
         
@@ -160,7 +209,7 @@ class FCNeuralNetwork {
         return 1 / (1 + exp(-dotProduct))
     }
     
-    //MARK: Private functions
+    // MARK: Private functions
     private func createMatrix(dimensions: (Int, Int)) -> [[Double]] {
         var matrix = [[Double]].init(repeating: [Double].init(repeating: 0, count: dimensions.1), count: dimensions.0)
         
@@ -180,9 +229,35 @@ class FCNeuralNetwork {
         return Double(arc4random()) / Double(UINT32_MAX)
     }
     
+    /// Matrix multiples weight matrix with nodes (including a bias node of 1 at the beginning)
+    ///
+    /// - Parameters:
+    ///   - weightMatrix:
+    ///   - nodes:
+    /// - Returns: result of the matrix multiplication
     private func forwardStep(weightMatrix: [[Double]], nodes: [Double]) -> [Double] {
-        // TODO: Implement
-        return [Double]()
+        
+        guard weightMatrix[0].count == nodes.count + 1 else {
+            fatalError("incorrect dimensions")
+        }
+        
+        var nodesWithBias = [1.0]
+        nodesWithBias.append(contentsOf: nodes)
+        
+        
+        var ret = [Double]()
+        
+        for row in weightMatrix {
+            let n = nodesWithBias.count
+            
+            for i in 0..<n {
+                let a = row[i]
+                let b = nodesWithBias[i]
+                
+                ret.append(a*b)
+            }
+        }
+        return ret
     }
 }
 
