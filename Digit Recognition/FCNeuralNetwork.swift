@@ -25,6 +25,7 @@ class FCNeuralNetwork {
     
     /// Node values for all layers, including input and output
     var nodes: [[Double]]
+
     
     
     // MARK: Initialization
@@ -33,9 +34,6 @@ class FCNeuralNetwork {
         self.inputSize = input
         self.outputSize = output
         self.hiddenLayerSizes = hiddenLayers
-        
-        let numberOfLayers = 2 + hiddenLayers.count
-        
     
         self.weights = [[[Double]]]()
         
@@ -88,6 +86,20 @@ class FCNeuralNetwork {
     
     // MARK: Functions
     
+    func predict(bitmap: [[UInt8]]) -> [Double] {
+        
+        var input = [Double]()
+        
+        for row in bitmap {
+            for value in row {
+                input.append(Double(value))
+            }
+        }
+        let prediction = forwardPass(input: input)
+        
+        return prediction
+    }
+    
     func addToTrainingSet(trainingData: (input: [UInt8], correctOutput: Int)) -> Void {
         self.trainingSet.append(trainingData)
     }
@@ -137,6 +149,10 @@ class FCNeuralNetwork {
     /// - Parameter input:
     /// - Returns: predicted output
     func forwardPass(input: [Double]) -> [Double] {
+        guard input.count == inputSize else {
+            fatalError("Incorrect dimension for forward pass")
+        }
+        
         nodes.removeAll()
         nodes.append(input)
         
@@ -184,7 +200,18 @@ class FCNeuralNetwork {
             results.append(resultData)
         }
         
+        var ret = 0.0
         
+        // normal part
+        for result in results {
+            
+            let predicted = result.predicted
+            let actual = result.actual
+            
+        }
+        
+        
+        // regularization
         
         
         
@@ -203,7 +230,7 @@ class FCNeuralNetwork {
         var dotProduct: Double = 0
         
         for i in 0..<n {
-            dotProduct += weights[i] * input[0]
+            dotProduct += weights[i] * input[i]
         }
         
         return 1 / (1 + exp(-dotProduct))
@@ -226,7 +253,7 @@ class FCNeuralNetwork {
     }
     
     private func random() -> Double {
-        return Double(arc4random()) / Double(UINT32_MAX)
+        return Double(arc4random()) / Double(UINT32_MAX) * M_E * 2 - M_E
     }
     
     /// Matrix multiples weight matrix with nodes (including a bias node of 1 at the beginning)
@@ -238,7 +265,7 @@ class FCNeuralNetwork {
     private func forwardStep(weightMatrix: [[Double]], nodes: [Double]) -> [Double] {
         
         guard weightMatrix[0].count == nodes.count + 1 else {
-            fatalError("incorrect dimensions")
+            fatalError("incorrect dimensions: \(weightMatrix[0].count) vs \(nodes.count + 1)")
         }
         
         var nodesWithBias = [1.0]
@@ -248,14 +275,7 @@ class FCNeuralNetwork {
         var ret = [Double]()
         
         for row in weightMatrix {
-            let n = nodesWithBias.count
-            
-            for i in 0..<n {
-                let a = row[i]
-                let b = nodesWithBias[i]
-                
-                ret.append(a*b)
-            }
+            ret.append(sigmoid(weights: row, input: nodesWithBias))
         }
         return ret
     }

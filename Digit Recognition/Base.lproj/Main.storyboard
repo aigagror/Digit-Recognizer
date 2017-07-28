@@ -31,12 +31,6 @@
                                     <constraint firstAttribute="width" secondItem="jdO-Vh-bKW" secondAttribute="height" multiplier="1:1" id="UQu-9q-Evg"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="InterpreterDisplay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3f-t3-rwe">
-                                <rect key="frame" x="118.5" y="72" width="137" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qL7-3T-1LX">
                                 <rect key="frame" x="168" y="529.5" width="39" height="30"/>
                                 <state key="normal" title="Reset"/>
@@ -45,21 +39,30 @@
                                     <action selector="resetPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="buQ-Xc-U5g"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prediction" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3f-t3-rwe">
+                                <rect key="frame" x="16" y="113.5" width="343" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="i3f-t3-rwe" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="52" id="0fV-MJ-RJA"/>
+                            <constraint firstItem="jdO-Vh-bKW" firstAttribute="top" secondItem="i3f-t3-rwe" secondAttribute="bottom" constant="25" id="7z7-74-jhw"/>
                             <constraint firstItem="jdO-Vh-bKW" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="MfD-Zf-lc2"/>
+                            <constraint firstItem="i3f-t3-rwe" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="RaK-e2-Cxe"/>
                             <constraint firstItem="qL7-3T-1LX" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="RxS-bT-4V7"/>
                             <constraint firstItem="qL7-3T-1LX" firstAttribute="top" secondItem="jdO-Vh-bKW" secondAttribute="bottom" constant="18.5" id="ZsI-83-8lS"/>
                             <constraint firstItem="i3f-t3-rwe" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="cPC-pV-RhM"/>
                             <constraint firstItem="jdO-Vh-bKW" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="dsY-0o-gEy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="i3f-t3-rwe" secondAttribute="trailing" id="mK6-k7-gqQ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Test" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="canvas" destination="jdO-Vh-bKW" id="g5U-Qa-YTv"/>
+                        <outlet property="predictionDisplay" destination="i3f-t3-rwe" id="ltd-bd-xCp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

@@ -8,8 +8,25 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, CanvasViewDelegate {
     
+    func userDidFinishWriting() {
+        if let bitMap = canvas.getCroppedBitMap(dimension: 28) {
+            var prediction = neuralNetwork.predict(bitmap: bitMap)
+            
+            for i in 0..<prediction.count {
+                prediction[i] = (prediction[i] * 100).rounded()
+            }
+            
+            predictionDisplay.text = "\(prediction)"
+        } else {
+            predictionDisplay.text = "Error"
+        }
+        
+        canvas.reset()
+    }
+    
+    @IBOutlet weak var predictionDisplay: UILabel!
     
     @IBOutlet weak var canvas: CanvasView!
     
@@ -20,6 +37,7 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        canvas.delegate = self
     }
 
     override func didReceiveMemoryWarning() {

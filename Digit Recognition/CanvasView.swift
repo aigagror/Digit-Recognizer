@@ -37,10 +37,18 @@ class CanvasView: UIView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         previousBeziers.append(currBezierPathCoors)
         currBezierPathCoors = [CGPoint]()
+        
+        if let delegate = delegate {
+            delegate.userDidFinishWriting()
+        }
     }
 
     
     // MARK: Properties
+    
+    var delegate: CanvasViewDelegate? = nil
+    
+    
     var currBezierPathCoors = [CGPoint]()
     
     var previousBeziers = [[CGPoint]]()
@@ -258,13 +266,13 @@ class CanvasView: UIView {
             fatalError()
         }
         
-        // print bitmap
-        for row in newPixels {
-            for index in row {
-                print(index, separator: "", terminator: "\t")
-            }
-            print("\n")
-        }
+//        // print bitmap
+//        for row in newPixels {
+//            for index in row {
+//                print(index, separator: "", terminator: "\t")
+//            }
+//            print("\n")
+//        }
         
         return newPixels
     }
