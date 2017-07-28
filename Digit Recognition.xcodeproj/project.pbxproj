@@ -66,12 +66,12 @@
 				2C2EE62D1F295C40004E9C94 /* Coor.swift */,
 				2C2EE6191F292E94004E9C94 /* FirstViewController.swift */,
 				2C2EE62B1F293426004E9C94 /* CanvasView.swift */,
-				2C2EE6311F2AA294004E9C94 /* Pixels.swift */,
 				2C2EE61B1F292E94004E9C94 /* SecondViewController.swift */,
 				2C2EE61D1F292E94004E9C94 /* Main.storyboard */,
 				2C2EE6201F292E94004E9C94 /* Assets.xcassets */,
 				2C2EE6221F292E94004E9C94 /* LaunchScreen.storyboard */,
 				2C2EE6251F292E94004E9C94 /* Info.plist */,
+				2C2EE6311F2AA294004E9C94 /* Pixels.swift */,
 			);
 			path = "Digit Recognition";
 			sourceTree = "<group>";

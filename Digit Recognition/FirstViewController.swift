@@ -19,7 +19,7 @@ class FirstViewController: UIViewController {
 
     @IBAction func showPressed(_ sender: Any) {
         
-        canvas.getIntensities()
+        canvas.getIntensities(dimension: 28)
         
     }
     

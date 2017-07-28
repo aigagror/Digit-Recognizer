@@ -46,7 +46,7 @@ class CanvasView: UIView {
     var previousBeziers = [[CGPoint]]()
     
 
-    let strokeThickness: CGFloat = 10
+    let strokeThickness: CGFloat = 30
     
     var needsReset: Bool = false
     
@@ -78,7 +78,7 @@ class CanvasView: UIView {
         }
     }
   
-    func getIntensities() -> Void {
+    func getIntensities(dimension: Int) -> Void {
         
         UIGraphicsBeginImageContext(self.frame.size)
         
@@ -92,19 +92,59 @@ class CanvasView: UIView {
         
         let cgImage = image.cgImage!
         
-        let pixels = pixelValues(fromCGImage: cgImage).pixelValues!
+        let oldPixels = pixelValues(fromCGImage: cgImage).pixelValues!
         
         let width = cgImage.width
         let height = cgImage.height
         
-        // scale it down to a mxm matrix
+        
+        // scale it down to a dimension x dimension matrix
+        var newPixels = [[UInt8]](repeating: [UInt8](repeating: 0, count: dimension), count: dimension)
+        
+        if dimension <= width && dimension <= height {
+            
+            let widthScaleFactor = Double(width) / Double(dimension)
+            let heightScaleFactor = Double(height) / Double(dimension)
+            
+            for i in 0..<dimension {
+                for j in 0..<dimension {
+                    
+                    // get the set of pixels from oldPixels that map to new pixels
+                    
+                    let startX = Int(Double(j) * widthScaleFactor)
+                    let startY = Int(Double(i) * heightScaleFactor)
+                    
+                    let endX = Int(Double(j+1) * widthScaleFactor)
+                    let endY = Int(Double(i+1) * heightScaleFactor)
+                    
+                    var sum = 0
+                    for x in startX..<endX {
+                        for y in startY..<endY {
+                            
+                            sum += Int(oldPixels[y*width + x])
+                            
+                        }
+                    }
+                    
+                    let numberOfMappedPixels = Double(endX - startX) * Double(endY - startY)
+                    
+                    newPixels[i][j] = UInt8(Double(sum) / numberOfMappedPixels)
+                }
+            }
+            
+            
+            
+            
+        } else {
+            fatalError()
+        }
         
         
-        
-        for i in 0..<height {
-            for j in 0..<width {
+        // print the pixels
+        for i in 0..<dimension {
+            for j in 0..<dimension {
                 
-                print(pixels[i*width + j], separator: "", terminator: "\t")
+                print(newPixels[i][j], separator: "", terminator: "\t")
                 
             }
             print("")
@@ -165,7 +205,7 @@ class CanvasView: UIView {
             width = imageRef.width
             height = imageRef.height
             let bitsPerComponent = imageRef.bitsPerComponent
-            let bytesPerRow = imageRef.bytesPerRow / 4
+            let bytesPerRow = width
             let totalBytes = height * bytesPerRow
             
             let colorSpace = CGColorSpaceCreateDeviceGray()
