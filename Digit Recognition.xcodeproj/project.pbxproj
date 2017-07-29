@@ -14,7 +14,6 @@
 		2C2EE6211F292E94004E9C94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2EE6201F292E94004E9C94 /* Assets.xcassets */; };
 		2C2EE6241F292E94004E9C94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2EE6221F292E94004E9C94 /* LaunchScreen.storyboard */; };
 		2C2EE62C1F293426004E9C94 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE62B1F293426004E9C94 /* CanvasView.swift */; };
-		2C2EE62E1F295C40004E9C94 /* Coor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE62D1F295C40004E9C94 /* Coor.swift */; };
 		2C2EE6381F2AC936004E9C94 /* FCNeuralNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE6371F2AC936004E9C94 /* FCNeuralNetwork.swift */; };
 		2C2EE6441F2ADE61004E9C94 /* Digit_RecognitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE6431F2ADE61004E9C94 /* Digit_RecognitionTests.swift */; };
 		2C2EE64C1F2BBE31004E9C94 /* CanvasViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE64B1F2BBE31004E9C94 /* CanvasViewDelegate.swift */; };
@@ -41,7 +40,6 @@
 		2C2EE6231F292E94004E9C94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C2EE6251F292E94004E9C94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C2EE62B1F293426004E9C94 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
-		2C2EE62D1F295C40004E9C94 /* Coor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coor.swift; sourceTree = "<group>"; };
 		2C2EE6371F2AC936004E9C94 /* FCNeuralNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCNeuralNetwork.swift; sourceTree = "<group>"; };
 		2C2EE6411F2ADE61004E9C94 /* Digit RecognitionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Digit RecognitionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2EE6431F2ADE61004E9C94 /* Digit_RecognitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digit_RecognitionTests.swift; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 				2C2EE6371F2AC936004E9C94 /* FCNeuralNetwork.swift */,
 				2C2EE64D1F2D3031004E9C94 /* NeuralNetworkDelegate.swift */,
 				2C2EE6171F292E94004E9C94 /* AppDelegate.swift */,
-				2C2EE62D1F295C40004E9C94 /* Coor.swift */,
 				2C2EE6191F292E94004E9C94 /* FirstViewController.swift */,
 				2C2EE62B1F293426004E9C94 /* CanvasView.swift */,
 				2C2EE64B1F2BBE31004E9C94 /* CanvasViewDelegate.swift */,
@@ -224,7 +221,6 @@
 				2C2EE64E1F2D3031004E9C94 /* NeuralNetworkDelegate.swift in Sources */,
 				2C2EE6181F292E94004E9C94 /* AppDelegate.swift in Sources */,
 				2C2EE62C1F293426004E9C94 /* CanvasView.swift in Sources */,
-				2C2EE62E1F295C40004E9C94 /* Coor.swift in Sources */,
 				2C2EE61A1F292E94004E9C94 /* FirstViewController.swift in Sources */,
 				2C2EE6381F2AC936004E9C94 /* FCNeuralNetwork.swift in Sources */,
 			);
