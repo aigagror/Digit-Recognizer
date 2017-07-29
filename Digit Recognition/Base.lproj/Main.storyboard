@@ -135,6 +135,14 @@
                                     <action selector="currentCostPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Stv-7C-T3y"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Di4-FB-g19">
+                                <rect key="frame" x="72" y="40" width="85" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="GradCheck"/>
+                                <connections>
+                                    <action selector="gradCheckPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="vfP-eM-jyb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                         <constraints>

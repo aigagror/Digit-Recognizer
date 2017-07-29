@@ -11,14 +11,21 @@ import UIKit
 class FirstViewController: UIViewController, CanvasViewDelegate {
     
     func userDidFinishWriting() {
-        if let bitMap = canvas.getCroppedBitMap(dimension: 28) {
+        if let bitMap = canvas.getCroppedBitMap(dimension: 8) {
             var prediction = neuralNetwork.predict(bitmap: bitMap)
+            
+            var choice = 0
+            for i in 1..<prediction.count {
+                if prediction[i] > prediction[choice] {
+                    choice = i
+                }
+            }
             
             for i in 0..<prediction.count {
                 prediction[i] = (prediction[i] * 100).rounded()
             }
             
-            predictionDisplay.text = "\(prediction)"
+            predictionDisplay.text = "\(choice)"
         } else {
             predictionDisplay.text = "Error"
         }

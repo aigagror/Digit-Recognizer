@@ -8,7 +8,7 @@
 
 import Foundation
 
-let neuralNetwork = FCNeuralNetwork(input: 784, output: 10, hiddenLayers: 300, 100)
+let neuralNetwork = FCNeuralNetwork(input: 64, output: 10, hiddenLayers: 100, 100)
 
 /// A fully connected neural network
 class FCNeuralNetwork {
@@ -22,7 +22,7 @@ class FCNeuralNetwork {
     private var weights: [[[Double]]]
 
     // Regularization term
-    private let lambda = 0.005
+    private let lambda = 0.00005
     
     private var trainingSet = [(input: [UInt8], correctOutput: Int)]()
     
@@ -124,23 +124,33 @@ class FCNeuralNetwork {
     
     /// This function optimizes the weights
     func train() -> Void {
-        // TODO: implement
+        let alpha = 0.5
         
         var oldCost = 0.0
         var newCost = 0.0
         
         repeat {
-            oldCost = costFunction()
-            
-            
-            // forward pass
+            oldCost = newCost
             
             
             // backpropogate
+            let D = backpropogate()
+            
+            let L = hiddenLayerSizes.count + 2
+            for l in 0..<L-1 {
+                for i in 0..<weights[l].count {
+                    for j in 0..<weights[l][i].count {
+                        
+                        let d = D[l][i][j]
+                        
+                        weights[l][i][j] -= alpha * d
+                    }
+                }
+            }
+            
             
             newCost = costFunction()
-            print(newCost)
-        } while oldCost - newCost > 1E-10
+        } while abs(oldCost - newCost) > 1E-2
     }
     
     func forwardPass(input: [UInt8]) -> [Double] {
@@ -196,7 +206,12 @@ class FCNeuralNetwork {
         }
         
         
-        var delta = nodes
+        var delta = [[Double]]()
+        delta.append([Double].init(repeating: 0.0, count: inputSize))
+        for size in hiddenLayerSizes {
+            delta.append([Double].init(repeating: 0.0, count: size))
+        }
+        delta.append([Double].init(repeating: 0.0, count: outputSize))
         
         
         // this is where we will store the partial derivatives
@@ -221,7 +236,7 @@ class FCNeuralNetwork {
             
             // calculate the deltas. Note that delta[0] is meaningless
             
-            delta[L] = vectorSubtract(v1: correctOutputVector, from: nodes[L])
+            delta[L-1] = vectorSubtract(v1: correctOutputVector, from: nodes[L-1])
             
             for i in (1..<L-1).reversed() {
                 
@@ -229,7 +244,9 @@ class FCNeuralNetwork {
                 
                 let transposedWeightMatrix = transpose(matrix: weightMatrix)
                 
-                let firstPart = matrixMultiply(matrix: transposedWeightMatrix, vector: delta[i+1])
+                var firstPart = matrixMultiply(matrix: transposedWeightMatrix, vector: delta[i+1])
+                
+                firstPart.removeFirst()
                 
                 let secondPart = gPrime(layerIndex: i)
                 
@@ -237,16 +254,15 @@ class FCNeuralNetwork {
             }
             
             // update the capitalDeltas
-            for l in 0..<L {
-                var capitalDeltaMatrix = capitalDelta[l]
-                
-                for i in 0..<capitalDeltaMatrix.count {
-                    for j in 0..<capitalDeltaMatrix[i].count {
-                        capitalDeltaMatrix[i][j] += nodes[l][j] * delta[l+1][i]
+            for l in 0..<L-1 {
+                for i in 0..<capitalDelta[l].count {
+                    var a = [1.0]
+                    a.append(contentsOf: nodes[l])
+                    
+                    for j in 0..<capitalDelta[l][i].count {
+                        capitalDelta[l][i][j] += a[j] * delta[l+1][i]
                     }
                 }
-                
-                capitalDelta[l] = capitalDeltaMatrix
             }
         }
         
@@ -296,32 +312,50 @@ class FCNeuralNetwork {
                     let costMinus = costFunction()
                     
                     gradApprox[l][i][j] = (costPlus - costMinus) / (2*epsilon)
+                    
+                    weights[l][i][j] = originalWeights[l][i][j]
  
                 }
             }
         }
         
         // compare gradApprox to D
-        var largestDifference = 0.0
+        var largestRelativeError = 0.0
+        var largestAbsoluteError = 0.0
+        var detectedOppositeSigns = false
         for l in 0..<L {
             for i in 0..<weights[l].count {
                 for j in 0..<weights[l][i].count {
                     
-                    let diff = abs(D[l][i][j] - gradApprox[l][i][j])
+                    let d = D[l][i][j]
+                    let ga = gradApprox[l][i][j]
                     
-                    if diff > largestDifference {
-                        largestDifference = diff
+                    let relErr = abs((d - ga) / ga)
+                    let absErr = abs((d - ga))
+                    
+                    if d*ga < 0 {
+                        detectedOppositeSigns = true
+                    }
+                    
+                    if relErr > largestRelativeError && relErr != Double.infinity {
+                        largestRelativeError = relErr
+                    }
+                    if absErr > largestAbsoluteError {
+                        largestAbsoluteError = absErr
                     }
                 }
             }
         }
         
-        print("gradient checking. largest difference: \(largestDifference)")
+        print("gradient checking. largest absErr: \(largestAbsoluteError). largest relErr: \(largestRelativeError)")
 
         weights = originalWeights
         
+        if detectedOppositeSigns {
+            print("Detected opposite signs")
+        }
         
-        return largestDifference <= epsilon
+        return largestRelativeError <= epsilon && detectedOppositeSigns == false
     }
     
     
@@ -366,7 +400,7 @@ class FCNeuralNetwork {
         let m = Double(results.count)
         ret = ret * (-1 / m)
         
-        print("normal part: \(ret)")
+        print("normal: \(ret)", separator: "", terminator: "\t")
         
         // regularization
         var regularization = 0.0
@@ -386,11 +420,12 @@ class FCNeuralNetwork {
         }
         regularization = regularization * (2 * lambda / m)
         
-        
+        print("reg: \(regularization)", separator: "", terminator: "\t")
         
         // add the regularization
         ret += regularization
         
+        print("total: \(ret)")
         
         return ret
     }

@@ -19,7 +19,7 @@ class SecondViewController: UIViewController, CanvasViewDelegate {
     }
     @IBAction func submitPressed(_ sender: UIButton) {
         
-        if let bitMap = canvas.getCroppedBitMap(dimension: 28) {
+        if let bitMap = canvas.getCroppedBitMap(dimension: 8) {
             neuralNetwork.addToTrainingSet(image: bitMap, correctOutput: segmentController.selectedSegmentIndex)
         }
 
@@ -34,6 +34,11 @@ class SecondViewController: UIViewController, CanvasViewDelegate {
         let cost = neuralNetwork.costFunction()
         
         print("cost: \(cost)")
+    }
+    @IBAction func gradCheckPressed(_ sender: UIButton) {
+        
+        let result = neuralNetwork.gradientCheck()
+        
     }
     
     func userDidFinishWriting() {
