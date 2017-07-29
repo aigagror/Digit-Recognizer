@@ -19,13 +19,15 @@ class FCNeuralNetwork {
     let outputSize: Int
     let hiddenLayerSizes: [Int]
     
-    var weights: [[[Double]]]
+    private var weights: [[[Double]]]
 
+    // Regularization term
+    private let lambda = 0.005
     
-    var trainingSet = [(input: [UInt8], correctOutput: Int)]()
+    private var trainingSet = [(input: [UInt8], correctOutput: Int)]()
     
     /// Node values for all layers, including input and output
-    var nodes: [[Double]]
+    private var nodes: [[Double]]
 
     
     
@@ -122,16 +124,23 @@ class FCNeuralNetwork {
     
     /// This function optimizes the weights
     func train() -> Void {
+        // TODO: implement
         
-        // TODO: Implement
-        let cost = costFunction()
-        print(cost)
+        var oldCost = 0.0
+        var newCost = 0.0
         
-        // forward pass
-
-        
-        // backpropogate
-        
+        repeat {
+            oldCost = costFunction()
+            
+            
+            // forward pass
+            
+            
+            // backpropogate
+            
+            newCost = costFunction()
+            print(newCost)
+        } while oldCost - newCost > 1E-10
     }
     
     func forwardPass(input: [UInt8]) -> [Double] {
@@ -173,8 +182,146 @@ class FCNeuralNetwork {
         return nodes.last!
     }
     
-    private func backpropogate() -> Void {
-        // TODO: Implement
+    
+    private func backpropogate() -> [[[Double]]] {
+        
+        // zero out capitalDelta
+        var capitalDelta = weights
+        for l in 0..<capitalDelta.count {
+            for i in 0..<capitalDelta[l].count {
+                for j in 0..<capitalDelta[l][i].count {
+                    capitalDelta[l][i][j] = 0.0
+                }
+            }
+        }
+        
+        
+        var delta = nodes
+        
+        
+        // this is where we will store the partial derivatives
+        var D = capitalDelta
+        
+        // number of layers
+        let L = hiddenLayerSizes.count + 2
+        
+        // number of training entries
+        let m = trainingSet.count
+        
+        for trainingEntry in trainingSet {
+            
+            let input = trainingEntry.input
+            
+            forwardPass(input: input)
+            
+            let correctOutput = trainingEntry.correctOutput
+            var correctOutputVector = [Double].init(repeating: 0, count: outputSize)
+            correctOutputVector[correctOutput] = 1
+            
+            
+            // calculate the deltas. Note that delta[0] is meaningless
+            
+            delta[L] = vectorSubtract(v1: correctOutputVector, from: nodes[L])
+            
+            for i in (1..<L-1).reversed() {
+                
+                let weightMatrix = weights[i]
+                
+                let transposedWeightMatrix = transpose(matrix: weightMatrix)
+                
+                let firstPart = matrixMultiply(matrix: transposedWeightMatrix, vector: delta[i+1])
+                
+                let secondPart = gPrime(layerIndex: i)
+                
+                delta[i] = entrywiseMultiply(firstPart, secondPart)
+            }
+            
+            // update the capitalDeltas
+            for l in 0..<L {
+                var capitalDeltaMatrix = capitalDelta[l]
+                
+                for i in 0..<capitalDeltaMatrix.count {
+                    for j in 0..<capitalDeltaMatrix[i].count {
+                        capitalDeltaMatrix[i][j] += nodes[l][j] * delta[l+1][i]
+                    }
+                }
+                
+                capitalDelta[l] = capitalDeltaMatrix
+            }
+        }
+        
+        // get the D!! (pun intended)
+        for l in 0..<L-1 {
+            for i in 0..<D[l].count {
+                for j in 0..<D[l][i].count {
+                    
+                    if j == 0 {
+                        D[l][i][j] = 1 / Double(m) * (capitalDelta[l][i][j] + lambda * weights[l][i][j])
+                    } else {
+                        D[l][i][j] = 1 / Double(m) * (capitalDelta[l][i][j])
+                    }
+                }
+            }
+        }
+        
+        
+        return D
+    }
+    
+    
+    /// Checks that backpropogation works correctly
+    ///
+    /// - Returns: True if it works, false if it doesn't
+    func gradientCheck() -> Bool {
+        
+        let D = backpropogate()
+        
+        let originalWeights = weights
+        
+        let epsilon = 1E-4
+        
+        var gradApprox = weights
+        
+        let L = hiddenLayerSizes.count + 1
+        
+        for l in 0..<L {
+            for i in 0..<weights[l].count {
+                for j in 0..<weights[l][i].count {
+                    weights[l][i][j] += epsilon
+                    
+                    let costPlus = costFunction()
+                    
+                    weights[l][i][j] -= 2*epsilon
+                    
+                    let costMinus = costFunction()
+                    
+                    gradApprox[l][i][j] = (costPlus - costMinus) / (2*epsilon)
+ 
+                }
+            }
+        }
+        
+        // compare gradApprox to D
+        var largestDifference = 0.0
+        for l in 0..<L {
+            for i in 0..<weights[l].count {
+                for j in 0..<weights[l][i].count {
+                    
+                    let diff = abs(D[l][i][j] - gradApprox[l][i][j])
+                    
+                    if diff > largestDifference {
+                        largestDifference = diff
+                    }
+                }
+            }
+        }
+        
+        print("gradient checking. largest difference: \(largestDifference)")
+
+        weights = originalWeights
+        
+        
+        return largestDifference <= epsilon
     }
     
     
@@ -182,8 +329,6 @@ class FCNeuralNetwork {
     ///
     /// - Returns: cost function value
     func costFunction() -> Double {
-        
-        let lambda = 0.005
         
         var results = [(predicted: [Double], actual: [Double])]()
         
@@ -308,6 +453,102 @@ class FCNeuralNetwork {
         for row in weightMatrix {
             ret.append(sigmoid(weights: row, input: nodesWithBias))
         }
+        return ret
+    }
+    
+    
+    /// Computes v2 - v1
+    ///
+    /// - Parameters:
+    ///   - v1:
+    ///   - v2:
+    private func vectorSubtract(v1: [Double], from v2: [Double]) -> [Double] {
+        
+        guard v1.count == v2.count else {
+            fatalError("bad input for vector subtract")
+        }
+        
+        var ret = v2
+        
+        let n = v1.count
+        for i in 0..<n {
+            ret[i] -= v1[i]
+        }
+        return ret
+    }
+    
+    private func transpose(matrix: [[Double]]) -> [[Double]] {
+        var ret = [[Double]]()
+        
+        let height = matrix.count
+        let width = matrix[0].count
+        
+        for j in 0..<width {
+            var column = [Double]()
+            for i in 0..<height {
+                column.append(matrix[i][j])
+            }
+            
+            ret.append(column)
+        }
+        
+        guard ret.count == width && ret[0].count == height else {
+            fatalError("transpose is incorrect")
+        }
+        
+        return ret
+    }
+    
+    private func matrixMultiply(matrix: [[Double]], vector: [Double]) -> [Double] {
+        guard matrix[0].count == vector.count else {
+            fatalError("bad arguments for matrix multiply")
+        }
+        
+        var ret = [Double]()
+        
+        for row in matrix {
+            
+            let ewm = entrywiseMultiply(row, vector)
+            
+            let dotProduct = sum(ewm)
+            
+            ret.append(dotProduct)
+        }
+        return ret
+    }
+    private func entrywiseMultiply(_ v1: [Double], _ v2: [Double]) -> [Double] {
+        guard v1.count == v2.count else {
+            fatalError("bad arguments for entrywise multiply")
+        }
+        
+        var ret = v1
+        for i in 0..<v1.count {
+            ret[i] *= v2[i]
+        }
+        
+        return ret
+    }
+    
+    private func sum(_ v: [Double]) -> Double {
+        var s = 0.0
+        
+        for value in v {
+            s += value
+        }
+        return s
+    }
+    
+    private func gPrime(layerIndex: Int) -> [Double] {
+        
+        let a = nodes[layerIndex]
+        
+        var ret = [Double]()
+        
+        for i in 0..<a.count {
+            let value = a[i] * (1 - a[i])
+            ret.append(value)
+        }
+        
         return ret
     }
 }
