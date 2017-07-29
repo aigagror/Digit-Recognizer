@@ -24,16 +24,6 @@ class Digit_RecognitionTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
-        let nn = FCNeuralNetwork(input: 1, output: 1, hiddenLayers: 1)
-        
-        let s1 = nn.sigmoid(weights: [1], input: [0])
-        let s2 = nn.sigmoid(weights: [1], input: [1])
-        let s3 = nn.sigmoid(weights: [1], input: [-1])
-        
-        XCTAssert(s1 == 0.5, "s1: \(s1)")
-        XCTAssert(s2 > 0.5, "s2: \(s2)")
-        XCTAssert(s3 < 0.5, "s2: \(s3)")
-        
     }
 //    
 //    func testPerformanceExample() {
