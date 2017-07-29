@@ -8,14 +8,18 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, CanvasViewDelegate {
+class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkDelegate {
 
+    
+    
+    @IBOutlet weak var progressView: UIProgressView!
+    
     @IBOutlet weak var canvas: CanvasView!
     @IBOutlet weak var segmentController: UISegmentedControl!
     
-    @IBAction func resetPressed(_ sender: UIButton) {
+    @IBAction func removeLastPressed(_ sender: UIButton) {
         
-        canvas.reset()
+        neuralNetwork.removeLastTrainingEntry()
     }
     @IBAction func submitPressed(_ sender: UIButton) {
         
@@ -47,7 +51,13 @@ class SecondViewController: UIViewController, CanvasViewDelegate {
         canvas.reset()
     }
     
+    func trainingProgressUpdate(progress: Double) {
+        progressView.setProgress(Float(progress), animated: true)
+    }
     
+    override func viewDidAppear(_ animated: Bool) {
+        neuralNetwork.delegate = self
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

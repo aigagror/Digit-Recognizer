@@ -39,9 +39,9 @@
                                     <action selector="resetPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="buQ-Xc-U5g"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prediction" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3f-t3-rwe">
-                                <rect key="frame" x="16" y="113.5" width="343" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3f-t3-rwe">
+                                <rect key="frame" x="16" y="98" width="343" height="33.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -89,19 +89,11 @@
                                     <constraint firstAttribute="width" secondItem="xv3-WA-rUI" secondAttribute="height" multiplier="1:1" id="ewF-8J-Wcg"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAZ-pl-dBp">
-                                <rect key="frame" x="308" y="530" width="51" height="30"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <state key="normal" title="Submit"/>
-                                <connections>
-                                    <action selector="submitPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="iZc-kR-0sk"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAs-fX-tND">
-                                <rect key="frame" x="16" y="530" width="39" height="30"/>
-                                <state key="normal" title="Reset"/>
+                                <rect key="frame" x="16" y="521.5" width="88" height="30"/>
+                                <state key="normal" title="Remove Last"/>
                                 <connections>
-                                    <action selector="resetPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="cbV-yq-f6u"/>
+                                    <action selector="removeLastPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="fZS-1G-g5z"/>
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3WI-Cf-94G">
@@ -120,43 +112,31 @@
                                 </segments>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z8H-D9-DhK">
-                                <rect key="frame" x="165" y="38" width="44" height="34"/>
+                                <rect key="frame" x="165" y="53" width="44" height="34"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Train"/>
                                 <connections>
                                     <action selector="trainPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="5bV-lz-6dr"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlX-UR-19c">
-                                <rect key="frame" x="217" y="40" width="88" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="showBitMap"/>
-                                <connections>
-                                    <action selector="showBitmapPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="4qV-h2-6sc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Di4-FB-g19">
-                                <rect key="frame" x="72" y="40" width="85" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="GradCheck"/>
-                                <connections>
-                                    <action selector="gradCheckPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="vfP-eM-jyb"/>
-                                </connections>
-                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gZz-Y6-WWG">
+                                <rect key="frame" x="66" y="31" width="242" height="2"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
-                            <constraint firstItem="bAZ-pl-dBp" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="18.5" id="45S-fW-h94"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="4Of-iD-2n6"/>
                             <constraint firstItem="3WI-Cf-94G" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="6J9-oT-i27"/>
                             <constraint firstItem="3WI-Cf-94G" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="8Iu-11-BxY"/>
-                            <constraint firstItem="3WI-Cf-94G" firstAttribute="top" secondItem="Z8H-D9-DhK" secondAttribute="bottom" constant="35" id="A9d-AP-PW7"/>
-                            <constraint firstItem="bAZ-pl-dBp" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="EPV-vt-vBQ"/>
+                            <constraint firstItem="3WI-Cf-94G" firstAttribute="top" secondItem="Z8H-D9-DhK" secondAttribute="bottom" constant="20" id="A9d-AP-PW7"/>
                             <constraint firstItem="MAs-fX-tND" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Vac-LS-Akt"/>
                             <constraint firstItem="Z8H-D9-DhK" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="VqO-12-zP0"/>
+                            <constraint firstItem="gZz-Y6-WWG" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="50" id="WUU-Ir-5YC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3WI-Cf-94G" secondAttribute="trailing" id="afo-XP-F6R"/>
+                            <constraint firstItem="Z8H-D9-DhK" firstAttribute="top" secondItem="gZz-Y6-WWG" secondAttribute="bottom" constant="20" id="pSo-KY-yMi"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="top" secondItem="3WI-Cf-94G" secondAttribute="bottom" constant="20.5" id="vom-Fh-6aY"/>
-                            <constraint firstItem="MAs-fX-tND" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="18.5" id="wcH-H8-WaB"/>
+                            <constraint firstItem="MAs-fX-tND" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="10" id="wcH-H8-WaB"/>
+                            <constraint firstItem="gZz-Y6-WWG" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="yV9-n8-aMa"/>
                             <constraint firstAttribute="trailing" secondItem="xv3-WA-rUI" secondAttribute="trailing" constant="10" id="zWc-PR-xap"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="zoN-Zl-lDg"/>
                         </constraints>
@@ -164,6 +144,7 @@
                     <tabBarItem key="tabBarItem" title="Train" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="canvas" destination="xv3-WA-rUI" id="nf3-eS-zSB"/>
+                        <outlet property="progressView" destination="gZz-Y6-WWG" id="tWG-he-zun"/>
                         <outlet property="segmentController" destination="3WI-Cf-94G" id="0W6-Qc-hfs"/>
                     </connections>
                 </viewController>

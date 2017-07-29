@@ -8,8 +8,8 @@
 
 import Foundation
 
-let dimension = 28
-let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 300, 100)
+let dimension = 16
+let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 100, 100)
 
 /// A fully connected neural network
 class FCNeuralNetwork {
@@ -30,6 +30,7 @@ class FCNeuralNetwork {
     /// Node values for all layers, including input and output
     private var nodes: [[Double]]
 
+    var delegate: NeuralNetworkDelegate? = nil
     
     
     // MARK: Initialization
@@ -115,6 +116,8 @@ class FCNeuralNetwork {
         var oldCost = 0.0
         var newCost = 0.0
         
+        var progress = 0.0
+        
         repeat {
             oldCost = newCost
             
@@ -136,7 +139,14 @@ class FCNeuralNetwork {
             
             
             newCost = costFunction()
-        } while abs(oldCost - newCost) > 1E-2
+            
+            progress = abs(oldCost - newCost)
+            
+            if let delegate = delegate {
+                delegate.trainingProgressUpdate(progress: min(1E-2 / progress, 1.0))
+            }
+            
+        } while progress > 1E-2
         
         print("Done training")
     }
@@ -419,6 +429,10 @@ class FCNeuralNetwork {
     }
     
     // MARK: Helper functions
+    
+    func removeLastTrainingEntry() -> Void {
+        trainingSet.removeLast()
+    }
     
     /// Shows an example of a bitmap from the training set
     func showBitMap() -> Void {
