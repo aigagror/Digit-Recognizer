@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class SecondViewController: UIViewController, CanvasViewDelegate {
 
     @IBOutlet weak var canvas: CanvasView!
     @IBOutlet weak var segmentController: UISegmentedControl!
@@ -28,10 +28,28 @@ class SecondViewController: UIViewController {
     @IBAction func trainPressed(_ sender: UIButton) {
         neuralNetwork.train()
     }
+    
+    @IBAction func currentCostPressed(_ sender: UIButton) {
+        
+        let cost = neuralNetwork.costFunction()
+        
+        print("cost: \(cost)")
+    }
+    
+    func userDidFinishWriting() {
+        if let bitMap = canvas.getCroppedBitMap(dimension: 28) {
+            neuralNetwork.addToTrainingSet(image: bitMap, correctOutput: segmentController.selectedSegmentIndex)
+        }
+        
+        canvas.reset()
+    }
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        canvas.delegate = self
     }
 
     override func didReceiveMemoryWarning() {

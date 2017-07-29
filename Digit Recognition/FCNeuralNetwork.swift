@@ -20,6 +20,7 @@ class FCNeuralNetwork {
     let hiddenLayerSizes: [Int]
     
     var weights: [[[Double]]]
+
     
     var trainingSet = [(input: [UInt8], correctOutput: Int)]()
     
@@ -182,9 +183,7 @@ class FCNeuralNetwork {
     /// - Returns: cost function value
     func costFunction() -> Double {
         
-        let lambda = 1.0
-        
-        // TODO: Implement
+        let lambda = 0.005
         
         var results = [(predicted: [Double], actual: [Double])]()
         
@@ -208,15 +207,47 @@ class FCNeuralNetwork {
             let predicted = result.predicted
             let actual = result.actual
             
+            let k = actual.count
+            
+            for i in 0..<k {
+                
+                let predictedNodeValue = predicted[i]
+                let actualNodeValue = actual[i]
+                
+                ret += actualNodeValue * log(predictedNodeValue) + (1-actualNodeValue) * log(1.0 - predictedNodeValue)
+                
+            }
         }
+        let m = Double(results.count)
+        ret = ret * (-1 / m)
         
+        print("normal part: \(ret)")
         
         // regularization
+        var regularization = 0.0
+        for weightMatrix in weights {
+            let width = weightMatrix[0].count
+            let height = weightMatrix.count
+            
+            for i in 1..<height {
+                // excluding the bias unit
+                for j in 0..<width {
+                    
+                    let theta = weightMatrix[i][j]
+                    
+                    regularization += theta * theta
+                }
+            }
+        }
+        regularization = regularization * (2 * lambda / m)
         
         
         
+        // add the regularization
+        ret += regularization
         
-        return 0.0
+        
+        return ret
     }
     
     func sigmoid(weights: [Double], input: [Double]) -> Double {

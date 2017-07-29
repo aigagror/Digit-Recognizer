@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "522963578.85663"
+            timestampString = "522981079.959336"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
             landmarkName = "forwardStep(weightMatrix:nodes:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "522963578.85663"
+            timestampString = "522981079.959336"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "forwardStep(weightMatrix:nodes:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,6 +190,22 @@
             startingLineNumber = "15"
             endingLineNumber = "15"
             landmarkName = "userDidFinishWriting()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Digit Recognition/FCNeuralNetwork.swift"
+            timestampString = "522981561.701351"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "costFunction()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
