@@ -130,9 +130,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlX-UR-19c">
                                 <rect key="frame" x="217" y="40" width="88" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="CurrentCost"/>
+                                <state key="normal" title="showBitMap"/>
                                 <connections>
-                                    <action selector="currentCostPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Stv-7C-T3y"/>
+                                    <action selector="showBitmapPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="4qV-h2-6sc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Di4-FB-g19">

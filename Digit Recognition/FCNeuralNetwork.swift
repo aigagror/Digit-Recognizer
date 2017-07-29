@@ -8,7 +8,8 @@
 
 import Foundation
 
-let neuralNetwork = FCNeuralNetwork(input: 64, output: 10, hiddenLayers: 100, 100)
+let dimension = 28
+let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 300, 100)
 
 /// A fully connected neural network
 class FCNeuralNetwork {
@@ -24,7 +25,7 @@ class FCNeuralNetwork {
     // Regularization term
     private let lambda = 0.00005
     
-    private var trainingSet = [(input: [UInt8], correctOutput: Int)]()
+    private var trainingSet = [(input: [Double], correctOutput: Int)]()
     
     /// Node values for all layers, including input and output
     private var nodes: [[Double]]
@@ -87,15 +88,15 @@ class FCNeuralNetwork {
    
     
     
-    // MARK: Functions
+    // MARK: Neural Network Functions
     
-    func predict(bitmap: [[UInt8]]) -> [Double] {
+    func predict(bitmap: [[Double]]) -> [Double] {
         
         var input = [Double]()
         
         for row in bitmap {
             for value in row {
-                input.append(Double(value))
+                input.append(value)
             }
         }
         let prediction = forwardPass(input: input)
@@ -103,22 +104,7 @@ class FCNeuralNetwork {
         return prediction
     }
     
-    func addToTrainingSet(trainingData: (input: [UInt8], correctOutput: Int)) -> Void {
-        self.trainingSet.append(trainingData)
-    }
     
-    func addToTrainingSet(image: [[UInt8]], correctOutput: Int) -> Void {
-        
-        var newInput = [UInt8]()
-        
-        for row in image {
-            for value in row {
-                newInput.append(value)
-            }
-        }
-        
-        addToTrainingSet(trainingData: (newInput, correctOutput: correctOutput))
-    }
     
     
     
@@ -151,6 +137,8 @@ class FCNeuralNetwork {
             
             newCost = costFunction()
         } while abs(oldCost - newCost) > 1E-2
+        
+        print("Done training")
     }
     
     func forwardPass(input: [UInt8]) -> [Double] {
@@ -430,7 +418,50 @@ class FCNeuralNetwork {
         return ret
     }
     
-    func sigmoid(weights: [Double], input: [Double]) -> Double {
+    // MARK: Helper functions
+    
+    /// Shows an example of a bitmap from the training set
+    func showBitMap() -> Void {
+        guard let entry = trainingSet.last else {
+            print("training set is empty :(")
+            return
+        }
+        
+        let input = entry.input
+        
+        let dimension = Int(sqrt(Double(input.count)))
+        
+        for i in 0..<dimension {
+            for j in 0..<dimension {
+                print(Int((input[i*dimension + j]*100.0).rounded()), separator: "", terminator: "\t")
+            }
+            print("\n")
+        }
+    }
+    
+    func addToTrainingSet(trainingData: (input: [Double], correctOutput: Int)) -> Void {
+        
+        guard trainingData.input.count == dimension*dimension else {
+            fatalError("incorrect dimensions")
+        }
+        
+        self.trainingSet.append(trainingData)
+    }
+    
+    func addToTrainingSet(image: [[Double]], correctOutput: Int) -> Void {
+        
+        var newInput = [Double]()
+        
+        for row in image {
+            for value in row {
+                newInput.append(value)
+            }
+        }
+        
+        addToTrainingSet(trainingData: (newInput, correctOutput: correctOutput))
+    }
+    
+    private func sigmoid(weights: [Double], input: [Double]) -> Double {
         
         guard weights.count == input.count else {
             fatalError("Incorrect dimension of parameters for sigmoid")
@@ -447,7 +478,6 @@ class FCNeuralNetwork {
         return 1 / (1 + exp(-dotProduct))
     }
     
-    // MARK: Private functions
     private func createMatrix(dimensions: (Int, Int)) -> [[Double]] {
         var matrix = [[Double]].init(repeating: [Double].init(repeating: 0, count: dimensions.1), count: dimensions.0)
         

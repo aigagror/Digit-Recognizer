@@ -87,7 +87,7 @@ class CanvasView: UIView {
     }
 
   
-    func getCroppedBitMap(dimension: Int) -> [[UInt8]]? {
+    func getCroppedBitMap(dimension: Int) -> [[Double]]? {
         
         UIGraphicsBeginImageContext(self.frame.size)
         
@@ -107,6 +107,15 @@ class CanvasView: UIView {
         for i in 0..<oldPixels.count {
             oldPixels[i] = 255 - oldPixels[i]
         }
+        
+        // scale the values from 0 to 1
+        
+        var oldPixelsDouble = [Double].init(repeating: 0.0, count: oldPixels.count)
+        for i in 0..<oldPixels.count {
+            oldPixelsDouble[i] = Double(oldPixels[i])
+        }
+        
+        
         
         // make sure there is at least a mark
         
@@ -216,21 +225,21 @@ class CanvasView: UIView {
             return nil
         }
         
-        var croppedPixels = [UInt8](repeatElement(0, count: croppedDimension*croppedDimension))
+        var croppedPixels = [Double](repeatElement(0.0, count: croppedDimension*croppedDimension))
         for x in startRowMarkIndex...endRowMarkIndex {
             for y in startColumnMarkIndex...endColumnMarkIndex {
                 
                 let i = x - startRowMarkIndex
                 let j = y - startColumnMarkIndex
                 
-                croppedPixels[j * croppedDimension + i] = oldPixels[y * width + x]
+                croppedPixels[j * croppedDimension + i] = oldPixelsDouble[y * width + x]
             }
         }
         
         
         
         // scale it down to a dimension x dimension matrix
-        var newPixels = [[UInt8]](repeating: [UInt8](repeating: 0, count: dimension), count: dimension)
+        var newPixels = [[Double]](repeating: [Double](repeating: 0, count: dimension), count: dimension)
         
         if dimension <= croppedDimension && dimension <= croppedDimension {
             
@@ -259,7 +268,7 @@ class CanvasView: UIView {
                     
                     let numberOfMappedPixels = Double(endX - startX) * Double(endY - startY)
                     
-                    newPixels[i][j] = UInt8(Double(sum) / numberOfMappedPixels)
+                    newPixels[i][j] = (Double(sum) / numberOfMappedPixels) / 255.0
                 }
             }
         } else {

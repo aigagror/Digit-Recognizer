@@ -11,7 +11,7 @@ import UIKit
 class FirstViewController: UIViewController, CanvasViewDelegate {
     
     func userDidFinishWriting() {
-        if let bitMap = canvas.getCroppedBitMap(dimension: 8) {
+        if let bitMap = canvas.getCroppedBitMap(dimension: dimension) {
             var prediction = neuralNetwork.predict(bitmap: bitMap)
             
             var choice = 0
