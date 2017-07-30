@@ -8,8 +8,8 @@
 
 import Foundation
 
-let dimension = 16
-let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 300, 100)
+let dimension = 8
+let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 50, 50)
 
 /// A fully connected neural network
 class FCNeuralNetwork {

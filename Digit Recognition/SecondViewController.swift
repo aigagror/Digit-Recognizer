@@ -23,6 +23,11 @@ class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkD
     @IBAction func removeLastPressed(_ sender: UIButton) {
         
         neuralNetwork.removeLastTrainingEntry()
+        let entries = neuralNetwork.numberOfTrainingEntries()
+        entryCountLabel.text = "\(entries)"
+        
+        segmentController.selectedSegmentIndex = segmentController.selectedSegmentIndex == 0 ? 9 : segmentController.selectedSegmentIndex - 1
+        
     }
     
     @IBAction func removeAllPressed(_ sender: UIButton) {
