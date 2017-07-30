@@ -50,24 +50,25 @@ class TestViewController: UIViewController, CanvasViewDelegate {
     
     func userDidFinishWriting() {
         if let bitMap = canvas.getCroppedBitMap(dimension: FCNeuralNetwork.dimension) {
-            var prediction = FCNeuralNetwork.neuralNetwork.predict(bitmap: bitMap)
-            
-            var choice = 0
-            for i in 1..<prediction.count {
-                if prediction[i] > prediction[choice] {
-                    choice = i
+            if var prediction = FCNeuralNetwork.neuralNetwork.predict(bitmap: bitMap) {
+                var choice = 0
+                for i in 1..<prediction.count {
+                    if prediction[i] > prediction[choice] {
+                        choice = i
+                    }
                 }
+                
+                for i in 0..<prediction.count {
+                    prediction[i] = (prediction[i] * 100).rounded()
+                }
+                
+                predictionDisplay.text = "\(choice)"
+            } else {
+                predictionDisplay.text = "Error: training in process"
             }
-            
-            for i in 0..<prediction.count {
-                prediction[i] = (prediction[i] * 100).rounded()
-            }
-            
-            predictionDisplay.text = "\(choice)"
         } else {
             predictionDisplay.text = "Error"
         }
-        
         canvas.reset()
     }
     

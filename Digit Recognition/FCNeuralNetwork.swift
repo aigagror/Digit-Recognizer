@@ -17,9 +17,8 @@ class FCNeuralNetwork {
     static let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 50, 50)
     static let dimension = 8
     
-    
-    
-    /// To be used outside the class
+
+    /// Protects the critical section stuff involved with the training function
     static let lock = NSLock()
     
     let inputSize: Int
@@ -97,27 +96,45 @@ class FCNeuralNetwork {
     
     // MARK: Neural Network Functions
     
-    func predict(bitmap: [[Double]]) -> [Double] {
+    func predict(bitmap: [[Double]]) -> [Double]? {
         
-        var input = [Double]()
-        
-        for row in bitmap {
-            for value in row {
-                input.append(value)
+        if FCNeuralNetwork.lock.try() {
+            var input = [Double]()
+            
+            for row in bitmap {
+                for value in row {
+                    input.append(value)
+                }
             }
+            let prediction = forwardPass(input: input)
+            
+            FCNeuralNetwork.lock.unlock()
+            return prediction
+        } else {
+            return nil
         }
-        let prediction = forwardPass(input: input)
-        
-        return prediction
     }
     
     
-    
-    
-    
-    /// This function optimizes the weights
+    /// This function asynchronously optimizes the weights on a different thread. Therefore, it returns immediately
+    /// Also locks the lock
     func train() -> Void {
         
+        if FCNeuralNetwork.lock.try() {
+            FCNeuralNetwork.lock.unlock()
+            
+            let trainQueue = DispatchQueue(label: "trainQueue")
+            trainQueue.async {
+                FCNeuralNetwork.lock.lock()
+                FCNeuralNetwork.neuralNetwork.train_helper()
+                FCNeuralNetwork.lock.unlock()
+            }
+        }
+        // otherwise, we already called the training function
+    }
+    
+    /// This function must never be called in the main thread
+    private func train_helper() -> Void {
         let startTime = Date.timeIntervalSinceReferenceDate
         
         let alpha = 0.75
@@ -152,7 +169,9 @@ class FCNeuralNetwork {
             progress = abs(oldCost - newCost)
             
             if let delegate = delegate {
-                delegate.trainingProgressUpdate(progress: min(1E-2 / progress, 1.0))
+                DispatchQueue.main.async {
+                    delegate.trainingProgressUpdate(progress: min(1E-2 / progress, 1.0))
+                }
             }
             
         } while progress > 1E-2
@@ -163,9 +182,10 @@ class FCNeuralNetwork {
         let seconds = Int(endTime-startTime)%60
         
         print("Done training. Took \(minutes):\(seconds) with \(trainingSet.count) training entries")
+        
     }
     
-    func forwardPass(input: [UInt8]) -> [Double] {
+    private func forwardPass(input: [UInt8]) -> [Double] {
         
         var input2 = [Double].init(repeating: 0.0, count: inputSize)
         
@@ -180,7 +200,7 @@ class FCNeuralNetwork {
     ///
     /// - Parameter input:
     /// - Returns: predicted output
-    func forwardPass(input: [Double]) -> [Double] {
+    private func forwardPass(input: [Double]) -> [Double] {
         guard input.count == inputSize else {
             fatalError("Incorrect dimension for forward pass")
         }
@@ -302,6 +322,10 @@ class FCNeuralNetwork {
     /// - Returns: True if it works, false if it doesn't
     func gradientCheck() -> Bool {
         
+        if !FCNeuralNetwork.lock.try() {
+            return false
+        }
+        
         let D = backpropogate()
         
         let originalWeights = weights
@@ -367,6 +391,7 @@ class FCNeuralNetwork {
             print("Detected opposite signs")
         }
         
+        FCNeuralNetwork.lock.unlock()
         return largestRelativeError <= epsilon && detectedOppositeSigns == false
     }
     
@@ -374,7 +399,7 @@ class FCNeuralNetwork {
     /// Tells us how well our neural network performs on the training set
     ///
     /// - Returns: cost function value
-    func costFunction() -> Double {
+    private func costFunction() -> Double {
         
         var results = [(predicted: [Double], actual: [Double])]()
         
@@ -441,22 +466,36 @@ class FCNeuralNetwork {
         return ret
     }
     
-    // MARK: Helper functions
+    // MARK: Secondary functions
     
     func numberOfTrainingEntries() -> Int {
         return trainingSet.count
     }
     
-    func clearTrainingSet() -> Void {
-        if !trainingSet.isEmpty {
-            trainingSet.removeAll()
+    func clearTrainingSet() -> Bool {
+        if FCNeuralNetwork.lock.try() {
+            if !trainingSet.isEmpty {
+                trainingSet.removeAll()
+            }
+            FCNeuralNetwork.lock.unlock()
+            
+            return true
+        } else {
+            return false
         }
     }
     
-    func removeLastTrainingEntry() -> Void {
+    func removeLastTrainingEntry() -> Bool {
         
-        if !trainingSet.isEmpty {
-            trainingSet.removeLast()
+        if FCNeuralNetwork.lock.try() {
+            if !trainingSet.isEmpty {
+                trainingSet.removeLast()
+            }
+            
+            FCNeuralNetwork.lock.unlock()
+            return true
+        } else {
+            return false
         }
     }
     
@@ -479,16 +518,24 @@ class FCNeuralNetwork {
         }
     }
     
-    func addToTrainingSet(trainingData: (input: [Double], correctOutput: Int)) -> Void {
+    func addToTrainingSet(trainingData: (input: [Double], correctOutput: Int)) -> Bool {
         
-        guard trainingData.input.count == FCNeuralNetwork.dimension*FCNeuralNetwork.dimension else {
-            fatalError("incorrect dimensions")
+        if FCNeuralNetwork.lock.try() {
+            guard trainingData.input.count == FCNeuralNetwork.dimension*FCNeuralNetwork.dimension else {
+                fatalError("incorrect dimensions")
+            }
+            
+            self.trainingSet.append(trainingData)
+            FCNeuralNetwork.lock.unlock()
+            
+            return true
         }
-        
-        self.trainingSet.append(trainingData)
+        return false
     }
     
-    func addToTrainingSet(image: [[Double]], correctOutput: Int) -> Void {
+    func addToTrainingSet(image: [[Double]], correctOutput: Int) -> Bool {
+        
+        // the calling functions already tries to lock the lock, so no need to lock here
         
         var newInput = [Double]()
         
@@ -498,7 +545,7 @@ class FCNeuralNetwork {
             }
         }
         
-        addToTrainingSet(trainingData: (newInput, correctOutput: correctOutput))
+        return addToTrainingSet(trainingData: (newInput, correctOutput: correctOutput))
     }
     
     private func sigmoid(weights: [Double], input: [Double]) -> Double {
@@ -517,6 +564,8 @@ class FCNeuralNetwork {
         
         return 1 / (1 + exp(-dotProduct))
     }
+    
+    // MARK: Helper functions
     
     private func createMatrix(dimensions: (Int, Int)) -> [[Double]] {
         var matrix = [[Double]].init(repeating: [Double].init(repeating: 0, count: dimensions.1), count: dimensions.0)

@@ -111,7 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241384"/>
+            <point key="canvasLocation" x="750" y="-436"/>
         </scene>
         <!--Train-->
         <scene sceneID="wg7-f3-ORb">
@@ -133,15 +133,29 @@
                                     <constraint firstAttribute="width" secondItem="xv3-WA-rUI" secondAttribute="height" multiplier="1:1" id="ewF-8J-Wcg"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAs-fX-tND">
-                                <rect key="frame" x="16" y="521.5" width="88" height="30"/>
-                                <state key="normal" title="Remove Last">
-                                    <color key="titleColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="removeLastPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="fZS-1G-g5z"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="TIN-ff-dgH">
+                                <rect key="frame" x="16" y="521.5" width="88" height="90"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAs-fX-tND">
+                                        <rect key="frame" x="0.0" y="0.0" width="88" height="30"/>
+                                        <state key="normal" title="Remove Last">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="removeLastPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="fZS-1G-g5z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loD-4m-5gs">
+                                        <rect key="frame" x="0.0" y="60" width="88" height="30"/>
+                                        <state key="normal" title="Remove All">
+                                            <color key="titleColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="removeAllPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ga8-Nx-DPG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3WI-Cf-94G">
                                 <rect key="frame" x="16" y="107" width="343" height="29"/>
                                 <segments>
@@ -168,16 +182,6 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gZz-Y6-WWG">
                                 <rect key="frame" x="66" y="31" width="242" height="2"/>
                             </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loD-4m-5gs">
-                                <rect key="frame" x="16" y="580" width="88" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Remove All">
-                                    <color key="titleColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="removeAllPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="Ga8-Nx-DPG"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0ML-ca-WNu">
                                 <rect key="frame" x="186" y="522" width="148.5" height="29"/>
                                 <subviews>
@@ -195,30 +199,46 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYS-BF-bRv" userLabel="stopperView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="Dbf-Yp-fcL">
+                                <rect key="frame" x="186" y="567" width="129" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yIn-CR-KCG">
+                                        <rect key="frame" x="0.0" y="0.0" width="34" height="30"/>
+                                        <state key="normal" title="Load"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAT-7p-jUb">
+                                        <rect key="frame" x="94" y="0.0" width="35" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Save"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lom-uH-Un9">
+                                <rect key="frame" x="160" y="323.5" width="56.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
+                            <constraint firstItem="lom-uH-Un9" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="1Fq-7O-pS9"/>
                             <constraint firstItem="0ML-ca-WNu" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="10.5" id="2NF-XG-FPu"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="4Of-iD-2n6"/>
+                            <constraint firstItem="TIN-ff-dgH" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="10" id="4kq-uZ-tRU"/>
                             <constraint firstItem="3WI-Cf-94G" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="6J9-oT-i27"/>
                             <constraint firstItem="3WI-Cf-94G" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="8Iu-11-BxY"/>
                             <constraint firstItem="3WI-Cf-94G" firstAttribute="top" secondItem="Z8H-D9-DhK" secondAttribute="bottom" constant="20" id="A9d-AP-PW7"/>
-                            <constraint firstAttribute="trailing" secondItem="YYS-BF-bRv" secondAttribute="trailing" id="DEk-6W-nq2"/>
-                            <constraint firstItem="MAs-fX-tND" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Vac-LS-Akt"/>
                             <constraint firstItem="Z8H-D9-DhK" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="VqO-12-zP0"/>
                             <constraint firstItem="gZz-Y6-WWG" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="50" id="WUU-Ir-5YC"/>
+                            <constraint firstItem="Dbf-Yp-fcL" firstAttribute="top" secondItem="Uoy-j6-NhN" secondAttribute="bottom" constant="16" id="Whs-Kx-CfM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3WI-Cf-94G" secondAttribute="trailing" id="afo-XP-F6R"/>
-                            <constraint firstItem="YYS-BF-bRv" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="c6t-Uu-CrD"/>
-                            <constraint firstAttribute="bottom" secondItem="YYS-BF-bRv" secondAttribute="bottom" id="g0a-0l-Umf"/>
+                            <constraint firstItem="TIN-ff-dgH" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="auF-Bo-U5O"/>
+                            <constraint firstItem="Dbf-Yp-fcL" firstAttribute="leading" secondItem="Uoy-j6-NhN" secondAttribute="leading" id="fSB-N2-W14"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0ML-ca-WNu" secondAttribute="trailing" constant="24.5" id="gkh-KI-cqa"/>
-                            <constraint firstItem="YYS-BF-bRv" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="j0h-iO-3W5"/>
                             <constraint firstItem="Z8H-D9-DhK" firstAttribute="top" secondItem="gZz-Y6-WWG" secondAttribute="bottom" constant="20" id="pSo-KY-yMi"/>
+                            <constraint firstItem="lom-uH-Un9" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="s3B-Oc-xyj"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="top" secondItem="3WI-Cf-94G" secondAttribute="bottom" constant="20.5" id="vom-Fh-6aY"/>
-                            <constraint firstItem="MAs-fX-tND" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="10" id="wcH-H8-WaB"/>
                             <constraint firstItem="gZz-Y6-WWG" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="yV9-n8-aMa"/>
                             <constraint firstAttribute="trailing" secondItem="xv3-WA-rUI" secondAttribute="trailing" constant="10" id="zWc-PR-xap"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="zoN-Zl-lDg"/>
@@ -230,12 +250,11 @@
                         <outlet property="entryCountLabel" destination="2pD-d6-6Dp" id="Anv-pb-6ir"/>
                         <outlet property="progressView" destination="gZz-Y6-WWG" id="tWG-he-zun"/>
                         <outlet property="segmentController" destination="3WI-Cf-94G" id="0W6-Qc-hfs"/>
-                        <outlet property="stopperView" destination="YYS-BF-bRv" id="OSg-kR-98b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="504.19790104947532"/>
+            <point key="canvasLocation" x="750" y="475"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
