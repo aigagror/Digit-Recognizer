@@ -22,8 +22,8 @@ class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkD
     
     @IBAction func removeLastPressed(_ sender: UIButton) {
         
-        neuralNetwork.removeLastTrainingEntry()
-        let entries = neuralNetwork.numberOfTrainingEntries()
+        FCNeuralNetwork.neuralNetwork.removeLastTrainingEntry()
+        let entries = FCNeuralNetwork.neuralNetwork.numberOfTrainingEntries()
         entryCountLabel.text = "\(entries)"
         
         segmentController.selectedSegmentIndex = segmentController.selectedSegmentIndex == 0 ? 9 : segmentController.selectedSegmentIndex - 1
@@ -32,14 +32,18 @@ class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkD
     
     @IBAction func removeAllPressed(_ sender: UIButton) {
         
-        neuralNetwork.clearTrainingSet()
+        FCNeuralNetwork.neuralNetwork.clearTrainingSet()
+        segmentController.selectedSegmentIndex = 0
+        
+        let entries = FCNeuralNetwork.neuralNetwork.numberOfTrainingEntries()
+        entryCountLabel.text = "\(entries)"
     }
     
     
     @IBAction func submitPressed(_ sender: UIButton) {
         
-        if let bitMap = canvas.getCroppedBitMap(dimension: dimension) {
-            neuralNetwork.addToTrainingSet(image: bitMap, correctOutput: segmentController.selectedSegmentIndex)
+        if let bitMap = canvas.getCroppedBitMap(dimension: FCNeuralNetwork.dimension) {
+            FCNeuralNetwork.neuralNetwork.addToTrainingSet(image: bitMap, correctOutput: segmentController.selectedSegmentIndex)
         }
 
         canvas.reset()
@@ -50,30 +54,30 @@ class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkD
         
         let trainQueue = DispatchQueue(label: "trainQueue")
         trainQueue.async {
-            neuralNetwork.train()
+            FCNeuralNetwork.neuralNetwork.train()
         }
     }
     
     @IBAction func showBitmapPressed(_ sender: UIButton) {
         
-        neuralNetwork.showBitMap()
+        FCNeuralNetwork.neuralNetwork.showBitMap()
     }
     @IBAction func gradCheckPressed(_ sender: UIButton) {
         
-        neuralNetwork.gradientCheck()
+        FCNeuralNetwork.neuralNetwork.gradientCheck()
         
     }
     
     func userDidFinishWriting() {
-        if let bitMap = canvas.getCroppedBitMap(dimension: dimension) {
-            neuralNetwork.addToTrainingSet(image: bitMap, correctOutput: segmentController.selectedSegmentIndex)
+        if let bitMap = canvas.getCroppedBitMap(dimension: FCNeuralNetwork.dimension) {
+            FCNeuralNetwork.neuralNetwork.addToTrainingSet(image: bitMap, correctOutput: segmentController.selectedSegmentIndex)
         }
         
         segmentController.selectedSegmentIndex = segmentController.selectedSegmentIndex == 9 ? 0 : segmentController.selectedSegmentIndex + 1
         
         canvas.reset()
         
-        let entries = neuralNetwork.numberOfTrainingEntries()
+        let entries = FCNeuralNetwork.neuralNetwork.numberOfTrainingEntries()
         entryCountLabel.text = "\(entries)"
     }
     
@@ -90,7 +94,7 @@ class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkD
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        neuralNetwork.delegate = self
+        FCNeuralNetwork.neuralNetwork.delegate = self
     }
 
     override func viewDidLoad() {

@@ -8,13 +8,19 @@
 
 import Foundation
 
-let dimension = 8
-let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 50, 50)
-
-/// A fully connected neural network
+/// A fully connected neural network. This is a singleton class
 class FCNeuralNetwork {
     
     // MARK: Properties
+    
+    /// represents the singleton of this class
+    static let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 50, 50)
+    static let dimension = 8
+    
+    
+    
+    /// To be used outside the class
+    static let lock = NSLock()
     
     let inputSize: Int
     let outputSize: Int
@@ -43,7 +49,7 @@ class FCNeuralNetwork {
         self.weights = [[[Double]]]()
         
         self.nodes = [[Double]]()
-
+        
         
         // weight matrix for input
         var dimensions = (0,0)
@@ -475,7 +481,7 @@ class FCNeuralNetwork {
     
     func addToTrainingSet(trainingData: (input: [Double], correctOutput: Int)) -> Void {
         
-        guard trainingData.input.count == dimension*dimension else {
+        guard trainingData.input.count == FCNeuralNetwork.dimension*FCNeuralNetwork.dimension else {
             fatalError("incorrect dimensions")
         }
         

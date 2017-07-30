@@ -223,11 +223,6 @@
                             <constraint firstAttribute="trailing" secondItem="xv3-WA-rUI" secondAttribute="trailing" constant="10" id="zWc-PR-xap"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="zoN-Zl-lDg"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="YYS-BF-bRv"/>
-                            </mask>
-                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Train" image="second" id="cPa-gy-q4n"/>
                     <connections>

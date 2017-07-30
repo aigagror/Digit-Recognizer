@@ -57,52 +57,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523053595.137627"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "12"
-            endingLineNumber = "12">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "globalinit_33_45D5153D2190BE82053F016FA8E45B3B_func0"
-                  moduleName = "Digit Recognition"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Eddie/Documents/iOS/Digit%20Recognition/Digit%20Recognition/FCNeuralNetwork.swift"
-                  timestampString = "522901071.091219"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "11"
-                  endingLineNumber = "11"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Digit_Recognition.neuralNetwork.unsafeMutableAddressor : Digit_Recognition.FCNeuralNetwork"
-                  moduleName = "Digit Recognition"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Eddie/Documents/iOS/Digit%20Recognition/Digit%20Recognition/FCNeuralNetwork.swift"
-                  timestampString = "522901071.093123"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "11"
-                  endingLineNumber = "11"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Digit Recognition/CanvasView.swift"
             timestampString = "523053296.508147"
             startingColumnNumber = "9223372036854775807"
@@ -360,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/SecondViewController.swift"
-            timestampString = "523077883.053268"
+            timestampString = "523079353.502973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "trainingProgressUpdate(progress:)"
             landmarkType = "7">
          </BreakpointContent>

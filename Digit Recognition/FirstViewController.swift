@@ -49,8 +49,8 @@ class FirstViewController: UIViewController, CanvasViewDelegate {
     @IBOutlet weak var successRateLabel: UILabel!
     
     func userDidFinishWriting() {
-        if let bitMap = canvas.getCroppedBitMap(dimension: dimension) {
-            var prediction = neuralNetwork.predict(bitmap: bitMap)
+        if let bitMap = canvas.getCroppedBitMap(dimension: FCNeuralNetwork.dimension) {
+            var prediction = FCNeuralNetwork.neuralNetwork.predict(bitmap: bitMap)
             
             var choice = 0
             for i in 1..<prediction.count {
