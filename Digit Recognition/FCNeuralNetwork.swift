@@ -9,7 +9,7 @@
 import Foundation
 
 let dimension = 16
-let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 100, 100)
+let neuralNetwork = FCNeuralNetwork(input: dimension * dimension, output: 10, hiddenLayers: 300, 100)
 
 /// A fully connected neural network
 class FCNeuralNetwork {
@@ -23,7 +23,7 @@ class FCNeuralNetwork {
     private var weights: [[[Double]]]
 
     // Regularization term
-    private let lambda = 0.00005
+    private let lambda = 0.000005
     
     private var trainingSet = [(input: [Double], correctOutput: Int)]()
     
@@ -111,7 +111,10 @@ class FCNeuralNetwork {
     
     /// This function optimizes the weights
     func train() -> Void {
-        let alpha = 0.5
+        
+        let startTime = Date.timeIntervalSinceReferenceDate
+        
+        let alpha = 0.75
         
         var oldCost = 0.0
         var newCost = 0.0
@@ -148,7 +151,12 @@ class FCNeuralNetwork {
             
         } while progress > 1E-2
         
-        print("Done training")
+        let endTime = Date.timeIntervalSinceReferenceDate
+        
+        let minutes = Int((endTime - startTime) / 60.0)
+        let seconds = Int(endTime-startTime)%60
+        
+        print("Done training. Took \(minutes):\(seconds) with \(trainingSet.count) training entries")
     }
     
     func forwardPass(input: [UInt8]) -> [Double] {
@@ -430,8 +438,21 @@ class FCNeuralNetwork {
     
     // MARK: Helper functions
     
+    func numberOfTrainingEntries() -> Int {
+        return trainingSet.count
+    }
+    
+    func clearTrainingSet() -> Void {
+        if !trainingSet.isEmpty {
+            trainingSet.removeAll()
+        }
+    }
+    
     func removeLastTrainingEntry() -> Void {
-        trainingSet.removeLast()
+        
+        if !trainingSet.isEmpty {
+            trainingSet.removeLast()
+        }
     }
     
     /// Shows an example of a bitmap from the training set

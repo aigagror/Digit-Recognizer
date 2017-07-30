@@ -10,6 +10,44 @@ import UIKit
 
 class FirstViewController: UIViewController, CanvasViewDelegate {
     
+    var trials = 0
+    var correct = 0
+    
+    @IBAction func correctPressed(_ sender: Any) {
+        
+        trials += 1
+        correct += 1
+        updateSuccessRate()
+        
+    }
+    
+    @IBAction func incorrectPressed(_ sender: Any) {
+        
+        trials += 1
+        updateSuccessRate()
+    }
+    
+    func updateSuccessRate() -> Void {
+        
+        
+        if trials == 0 {
+            successRateLabel.text = "-"
+        } else {
+            let rate = Int((Double(correct) / Double(trials) * 100).rounded())
+            
+            successRateLabel.text = "\(rate)"
+        }
+    }
+    
+    @IBAction func resetPressed(_ sender: Any) {
+        
+        trials = 0
+        correct = 0
+        updateSuccessRate()
+    }
+    
+    @IBOutlet weak var successRateLabel: UILabel!
+    
     func userDidFinishWriting() {
         if let bitMap = canvas.getCroppedBitMap(dimension: dimension) {
             var prediction = neuralNetwork.predict(bitmap: bitMap)
@@ -37,9 +75,6 @@ class FirstViewController: UIViewController, CanvasViewDelegate {
     
     @IBOutlet weak var canvas: CanvasView!
     
-    @IBAction func resetPressed(_ sender: UIButton) {
-        canvas.reset()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

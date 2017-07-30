@@ -8,9 +8,12 @@
 
 import UIKit
 
+
 class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkDelegate {
 
+    @IBOutlet weak var entryCountLabel: UILabel!
     
+    @IBOutlet weak var stopperView: UIView!
     
     @IBOutlet weak var progressView: UIProgressView!
     
@@ -21,6 +24,13 @@ class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkD
         
         neuralNetwork.removeLastTrainingEntry()
     }
+    
+    @IBAction func removeAllPressed(_ sender: UIButton) {
+        
+        neuralNetwork.clearTrainingSet()
+    }
+    
+    
     @IBAction func submitPressed(_ sender: UIButton) {
         
         if let bitMap = canvas.getCroppedBitMap(dimension: dimension) {
@@ -30,7 +40,13 @@ class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkD
         canvas.reset()
     }
     @IBAction func trainPressed(_ sender: UIButton) {
-        neuralNetwork.train()
+        stopperView.isHidden = false
+        progressView.setProgress(0.0, animated: true)
+        
+        let trainQueue = DispatchQueue(label: "trainQueue")
+        trainQueue.async {
+            neuralNetwork.train()
+        }
     }
     
     @IBAction func showBitmapPressed(_ sender: UIButton) {
@@ -48,11 +64,24 @@ class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkD
             neuralNetwork.addToTrainingSet(image: bitMap, correctOutput: segmentController.selectedSegmentIndex)
         }
         
+        segmentController.selectedSegmentIndex = segmentController.selectedSegmentIndex == 9 ? 0 : segmentController.selectedSegmentIndex + 1
+        
         canvas.reset()
+        
+        let entries = neuralNetwork.numberOfTrainingEntries()
+        entryCountLabel.text = "\(entries)"
     }
     
     func trainingProgressUpdate(progress: Double) {
-        progressView.setProgress(Float(progress), animated: true)
+        let progress = Float(progress)
+        
+        DispatchQueue.main.async {
+            self.progressView.setProgress(progress, animated: true)
+            
+            if progress == 1.0 {
+                self.stopperView.isHidden = true
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
