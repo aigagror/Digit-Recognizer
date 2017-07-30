@@ -23,7 +23,7 @@ class FCNeuralNetwork {
     private var weights: [[[Double]]]
 
     // Regularization term
-    private let lambda = 0.000005
+    private let lambda = 0.5
     
     private var trainingSet = [(input: [Double], correctOutput: Int)]()
     
@@ -414,8 +414,7 @@ class FCNeuralNetwork {
             let width = weightMatrix[0].count
             let height = weightMatrix.count
             
-            for i in 1..<height {
-                // excluding the bias unit
+            for i in 0..<height {
                 for j in 0..<width {
                     
                     let theta = weightMatrix[i][j]
@@ -424,7 +423,7 @@ class FCNeuralNetwork {
                 }
             }
         }
-        regularization = regularization * (2 * lambda / m)
+        regularization = regularization * (lambda / (2*m))
         
         print("reg: \(regularization)", separator: "", terminator: "\t")
         
