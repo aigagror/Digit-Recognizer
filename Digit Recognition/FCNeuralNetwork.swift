@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 /// A fully connected neural network. This is a singleton class
 class FCNeuralNetwork {
@@ -30,7 +31,7 @@ class FCNeuralNetwork {
     // Regularization term
     private let lambda = 0.5
     
-    private var trainingSet = [(input: [Double], correctOutput: Int)]()
+    private var trainingSet = TrainingSet(dimension: FCNeuralNetwork.dimension)!
     
     /// Node values for all layers, including input and output
     private var nodes: [[Double]]
@@ -181,7 +182,7 @@ class FCNeuralNetwork {
         let minutes = Int((endTime - startTime) / 60.0)
         let seconds = Int(endTime-startTime)%60
         
-        print("Done training. Took \(minutes):\(seconds) with \(trainingSet.count) training entries")
+        print("Done training. Took \(minutes):\(seconds) with \(trainingSet.entries.count) training entries")
         
     }
     
@@ -253,9 +254,9 @@ class FCNeuralNetwork {
         let L = hiddenLayerSizes.count + 2
         
         // number of training entries
-        let m = trainingSet.count
+        let m = trainingSet.entries.count
         
-        for trainingEntry in trainingSet {
+        for trainingEntry in trainingSet.entries {
             
             let input = trainingEntry.input
             
@@ -403,7 +404,7 @@ class FCNeuralNetwork {
         
         var results = [(predicted: [Double], actual: [Double])]()
         
-        for trainData in trainingSet {
+        for trainData in trainingSet.entries {
             let predicted = forwardPass(input: trainData.input)
             let correctOutput = trainData.correctOutput
             
@@ -468,14 +469,39 @@ class FCNeuralNetwork {
     
     // MARK: Secondary functions
     
+    
+    func saveTrainingSet() -> Bool {
+        let isSuccesfulSave = NSKeyedArchiver.archiveRootObject(trainingSet, toFile: TrainingSet.ArchiveURL.path)
+        
+        if isSuccesfulSave {
+            os_log("Training set successfully saved", log: OSLog.default, type: .debug)
+            return true
+        } else {
+            os_log("Failed to save training set...", log: OSLog.default, type: .error)
+            return false
+        }
+    }
+    
+    func loadTrainingSet() -> Bool {
+
+        if let newTrainingSet = NSKeyedUnarchiver.unarchiveObject(withFile: TrainingSet.ArchiveURL.path) as? TrainingSet {
+            os_log("Training set successfully loaded", log: OSLog.default, type: .debug)
+            trainingSet = newTrainingSet
+            return true
+        } else {
+            os_log("Failed to load training set...", log: OSLog.default, type: .error)
+            return false
+        }
+    }
+    
     func numberOfTrainingEntries() -> Int {
-        return trainingSet.count
+        return trainingSet.entries.count
     }
     
     func clearTrainingSet() -> Bool {
         if FCNeuralNetwork.lock.try() {
-            if !trainingSet.isEmpty {
-                trainingSet.removeAll()
+            if !trainingSet.entries.isEmpty {
+                trainingSet.entries.removeAll()
             }
             FCNeuralNetwork.lock.unlock()
             
@@ -488,8 +514,8 @@ class FCNeuralNetwork {
     func removeLastTrainingEntry() -> Bool {
         
         if FCNeuralNetwork.lock.try() {
-            if !trainingSet.isEmpty {
-                trainingSet.removeLast()
+            if !trainingSet.entries.isEmpty {
+                trainingSet.entries.removeLast()
             }
             
             FCNeuralNetwork.lock.unlock()
@@ -501,7 +527,7 @@ class FCNeuralNetwork {
     
     /// Shows an example of a bitmap from the training set
     func showBitMap() -> Void {
-        guard let entry = trainingSet.last else {
+        guard let entry = trainingSet.entries.last else {
             print("training set is empty :(")
             return
         }
@@ -525,7 +551,7 @@ class FCNeuralNetwork {
                 fatalError("incorrect dimensions")
             }
             
-            self.trainingSet.append(trainingData)
+            self.trainingSet.entries.append(trainingData)
             FCNeuralNetwork.lock.unlock()
             
             return true

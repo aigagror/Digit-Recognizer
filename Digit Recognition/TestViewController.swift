@@ -64,7 +64,7 @@ class TestViewController: UIViewController, CanvasViewDelegate {
                 
                 predictionDisplay.text = "\(choice)"
             } else {
-                predictionDisplay.text = "Error: training in process"
+                predictionDisplay.text = "-"
             }
         } else {
             predictionDisplay.text = "Error"

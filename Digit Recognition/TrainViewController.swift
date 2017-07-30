@@ -11,12 +11,45 @@ import UIKit
 
 class TrainViewController: UIViewController, CanvasViewDelegate, NeuralNetworkDelegate {
 
+    @IBOutlet weak var notifierView: UIView!
+    @IBOutlet weak var notifierLabel: UILabel!
     @IBOutlet weak var entryCountLabel: UILabel!
-    
     @IBOutlet weak var progressView: UIProgressView!
-    
     @IBOutlet weak var canvas: CanvasView!
     @IBOutlet weak var segmentController: UISegmentedControl!
+    
+    
+    @IBAction func savePressed(_ sender: Any) {
+        if FCNeuralNetwork.neuralNetwork.saveTrainingSet() {
+            notifierLabel.text = "Training Set Saved"
+            
+            UIView.animate(withDuration: 2.0, animations: {
+                self.notifierView.alpha = 0.0
+                self.notifierView.alpha = 1.0
+                self.notifierView.alpha = 0.0
+            })
+            
+        }
+    }
+    
+    @IBAction func loadPressed(_ sender: Any) {
+        if FCNeuralNetwork.neuralNetwork.loadTrainingSet() {
+            notifierLabel.text = "Training Set Loaded"
+            
+            UIView.animate(withDuration: 2.0, animations: {
+                self.notifierView.alpha = 0.0
+                self.notifierView.alpha = 1.0
+                self.notifierView.alpha = 0.0
+            })
+
+            let entries = FCNeuralNetwork.neuralNetwork.numberOfTrainingEntries()
+            
+            segmentController.selectedSegmentIndex = entries % 10
+            
+            entryCountLabel.text = "\(entries)"
+        }
+    }
+
     
     @IBAction func removeLastPressed(_ sender: UIButton) {
         
@@ -41,6 +74,7 @@ class TrainViewController: UIViewController, CanvasViewDelegate, NeuralNetworkDe
     
     @IBAction func trainPressed(_ sender: UIButton) {
         progressView.setProgress(0.0, animated: true)
+        FCNeuralNetwork.neuralNetwork.train()
     }
     
     func userDidFinishWriting() {
@@ -48,13 +82,12 @@ class TrainViewController: UIViewController, CanvasViewDelegate, NeuralNetworkDe
             if FCNeuralNetwork.neuralNetwork.addToTrainingSet(image: bitMap, correctOutput: segmentController.selectedSegmentIndex) {
                 segmentController.selectedSegmentIndex = segmentController.selectedSegmentIndex == 9 ? 0 : segmentController.selectedSegmentIndex + 1
                 
-                canvas.reset()
-                
                 let entries = FCNeuralNetwork.neuralNetwork.numberOfTrainingEntries()
                 entryCountLabel.text = "\(entries)"
                 
             }
         }
+        canvas.reset()
     }
     
     func trainingProgressUpdate(progress: Double) {

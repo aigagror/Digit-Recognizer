@@ -205,25 +205,43 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yIn-CR-KCG">
                                         <rect key="frame" x="0.0" y="0.0" width="34" height="30"/>
                                         <state key="normal" title="Load"/>
+                                        <connections>
+                                            <action selector="loadPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="dFC-Yc-f9i"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAT-7p-jUb">
                                         <rect key="frame" x="94" y="0.0" width="35" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="savePressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="XY9-dO-N2i"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lom-uH-Un9">
-                                <rect key="frame" x="160" y="323.5" width="56.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ScR-KI-7wL" userLabel="Notifier View">
+                                <rect key="frame" x="67.5" y="269" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lom-uH-Un9">
+                                        <rect key="frame" x="92" y="54" width="56.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="lom-uH-Un9" firstAttribute="centerX" secondItem="ScR-KI-7wL" secondAttribute="centerX" id="JOz-t6-aVM"/>
+                                    <constraint firstAttribute="height" constant="128" id="LBZ-6V-rlg"/>
+                                    <constraint firstAttribute="width" constant="240" id="VOp-y7-M3o"/>
+                                    <constraint firstItem="lom-uH-Un9" firstAttribute="centerY" secondItem="ScR-KI-7wL" secondAttribute="centerY" id="h2G-bo-z38"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
-                            <constraint firstItem="lom-uH-Un9" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="1Fq-7O-pS9"/>
                             <constraint firstItem="0ML-ca-WNu" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="10.5" id="2NF-XG-FPu"/>
+                            <constraint firstItem="ScR-KI-7wL" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="35O-bL-9qm"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="4Of-iD-2n6"/>
                             <constraint firstItem="TIN-ff-dgH" firstAttribute="top" secondItem="xv3-WA-rUI" secondAttribute="bottom" constant="10" id="4kq-uZ-tRU"/>
                             <constraint firstItem="3WI-Cf-94G" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="6J9-oT-i27"/>
@@ -236,8 +254,8 @@
                             <constraint firstItem="TIN-ff-dgH" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="auF-Bo-U5O"/>
                             <constraint firstItem="Dbf-Yp-fcL" firstAttribute="leading" secondItem="Uoy-j6-NhN" secondAttribute="leading" id="fSB-N2-W14"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0ML-ca-WNu" secondAttribute="trailing" constant="24.5" id="gkh-KI-cqa"/>
+                            <constraint firstItem="ScR-KI-7wL" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="hcj-01-50F"/>
                             <constraint firstItem="Z8H-D9-DhK" firstAttribute="top" secondItem="gZz-Y6-WWG" secondAttribute="bottom" constant="20" id="pSo-KY-yMi"/>
-                            <constraint firstItem="lom-uH-Un9" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="s3B-Oc-xyj"/>
                             <constraint firstItem="xv3-WA-rUI" firstAttribute="top" secondItem="3WI-Cf-94G" secondAttribute="bottom" constant="20.5" id="vom-Fh-6aY"/>
                             <constraint firstItem="gZz-Y6-WWG" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="yV9-n8-aMa"/>
                             <constraint firstAttribute="trailing" secondItem="xv3-WA-rUI" secondAttribute="trailing" constant="10" id="zWc-PR-xap"/>
@@ -248,13 +266,15 @@
                     <connections>
                         <outlet property="canvas" destination="xv3-WA-rUI" id="nf3-eS-zSB"/>
                         <outlet property="entryCountLabel" destination="2pD-d6-6Dp" id="Anv-pb-6ir"/>
+                        <outlet property="notifierLabel" destination="lom-uH-Un9" id="g0G-uR-hkv"/>
+                        <outlet property="notifierView" destination="ScR-KI-7wL" id="kZC-ly-7Fw"/>
                         <outlet property="progressView" destination="gZz-Y6-WWG" id="tWG-he-zun"/>
                         <outlet property="segmentController" destination="3WI-Cf-94G" id="0W6-Qc-hfs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="475"/>
+            <point key="canvasLocation" x="749.60000000000002" y="474.51274362818594"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">

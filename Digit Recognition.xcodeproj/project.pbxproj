@@ -18,6 +18,7 @@
 		2C2EE6441F2ADE61004E9C94 /* Digit_RecognitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE6431F2ADE61004E9C94 /* Digit_RecognitionTests.swift */; };
 		2C2EE64C1F2BBE31004E9C94 /* CanvasViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE64B1F2BBE31004E9C94 /* CanvasViewDelegate.swift */; };
 		2C2EE64E1F2D3031004E9C94 /* NeuralNetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE64D1F2D3031004E9C94 /* NeuralNetworkDelegate.swift */; };
+		2C2EE6501F2E5236004E9C94 /* TrainingSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2EE64F1F2E5236004E9C94 /* TrainingSet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		2C2EE6451F2ADE61004E9C94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C2EE64B1F2BBE31004E9C94 /* CanvasViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewDelegate.swift; sourceTree = "<group>"; };
 		2C2EE64D1F2D3031004E9C94 /* NeuralNetworkDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeuralNetworkDelegate.swift; sourceTree = "<group>"; };
+		2C2EE64F1F2E5236004E9C94 /* TrainingSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				2C2EE64D1F2D3031004E9C94 /* NeuralNetworkDelegate.swift */,
 				2C2EE6191F292E94004E9C94 /* TestViewController.swift */,
 				2C2EE61B1F292E94004E9C94 /* TrainViewController.swift */,
+				2C2EE64F1F2E5236004E9C94 /* TrainingSet.swift */,
 				2C2EE62B1F293426004E9C94 /* CanvasView.swift */,
 				2C2EE64B1F2BBE31004E9C94 /* CanvasViewDelegate.swift */,
 				2C2EE61D1F292E94004E9C94 /* Main.storyboard */,
@@ -220,6 +223,7 @@
 				2C2EE61C1F292E94004E9C94 /* TrainViewController.swift in Sources */,
 				2C2EE64E1F2D3031004E9C94 /* NeuralNetworkDelegate.swift in Sources */,
 				2C2EE6181F292E94004E9C94 /* AppDelegate.swift in Sources */,
+				2C2EE6501F2E5236004E9C94 /* TrainingSet.swift in Sources */,
 				2C2EE62C1F293426004E9C94 /* CanvasView.swift in Sources */,
 				2C2EE61A1F292E94004E9C94 /* TestViewController.swift in Sources */,
 				2C2EE6381F2AC936004E9C94 /* FCNeuralNetwork.swift in Sources */,
