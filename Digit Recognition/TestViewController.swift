@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, CanvasViewDelegate {
+class TestViewController: UIViewController, CanvasViewDelegate {
     
     var trials = 0
     var correct = 0

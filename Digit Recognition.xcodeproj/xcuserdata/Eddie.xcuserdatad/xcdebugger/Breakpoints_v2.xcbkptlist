@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523077822.524037"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "507"
-            endingLineNumber = "507"
+            startingLineNumber = "513"
+            endingLineNumber = "513"
             landmarkName = "sigmoid(weights:input:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523077822.524037"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "519"
-            endingLineNumber = "519"
+            startingLineNumber = "525"
+            endingLineNumber = "525"
             landmarkName = "createMatrix(dimensions:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "FCNeuralNetwork"
             landmarkType = "3">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "backpropogate()"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "backpropogate()"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,7 +202,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
+            timestampString = "523115988.143636"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
+            landmarkName = "gradientCheck()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Digit Recognition/FCNeuralNetwork.swift"
+            timestampString = "523115988.143636"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "gradientCheck()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Digit Recognition/FCNeuralNetwork.swift"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "343"
@@ -218,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
             landmarkName = "gradientCheck()"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
             landmarkName = "gradientCheck()"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "339"
@@ -266,43 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
-            landmarkName = "gradientCheck()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
-            landmarkName = "gradientCheck()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523068100.564971"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
             landmarkName = "gradientCheck()"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523071073.68368"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "train()"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523077724.512166"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "costFunction()"
             landmarkType = "7">
          </BreakpointContent>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523077727.279493"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
             landmarkName = "costFunction()"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Digit Recognition/FCNeuralNetwork.swift"
-            timestampString = "523077728.172935"
+            timestampString = "523115988.143636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
             landmarkName = "costFunction()"
             landmarkType = "7">
          </BreakpointContent>

@@ -9,7 +9,7 @@
 import UIKit
 
 
-class SecondViewController: UIViewController, CanvasViewDelegate, NeuralNetworkDelegate {
+class TrainViewController: UIViewController, CanvasViewDelegate, NeuralNetworkDelegate {
 
     @IBOutlet weak var entryCountLabel: UILabel!
     
